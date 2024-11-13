@@ -1,8 +1,8 @@
-package com.beysa.services.UserDomain.UserPermissions;
+package com.beysa.services.UserDomain.RolePermissions;
 
 import java.security.Permissions;
 
-import com.beysa.services.UserDomain.User.UserEntity;
+import com.beysa.services.UserDomain.Rol.Rol;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,14 +22,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "t_user_permissions")
 
-public class UserPermissions{
+public class RolePermissions{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_user_permissions")
+    @Column(name = "id_role_permissions")
     private long id_user_permissions;
     
-    @JoinColumn(name = "id_user")
-    private UserEntity user;
+    @JoinColumn(name = "id_rol")
+    private Rol rol;
     
     @ManyToOne
     @JoinColumn(name = "id_permissions")

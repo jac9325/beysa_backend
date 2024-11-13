@@ -1,0 +1,24 @@
+package com.beysa.services.UserDomain.Department;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.beysa.services.UserDomain.Department.DTO.DepartmentDto;
+
+public class DepartmentUtils {
+    public DepartmentDto convertDepartamentDto(Department department){
+        DepartmentDto response = new DepartmentDto();
+        response.setIdDepartment(department.getIdDepartment());
+        response.setName(department.getName());
+        response.setIdCountry(department.getCountry().getIdCountry());
+        response.setStatus(department.getStatus());
+        return response;
+    }
+    
+    public List<DepartmentDto> convertListDepartmentDto(List<Department> listDepartment){
+        return listDepartment.stream()
+                .map(this::convertDepartamentDto)
+                .collect(Collectors.toList());
+
+    }
+}

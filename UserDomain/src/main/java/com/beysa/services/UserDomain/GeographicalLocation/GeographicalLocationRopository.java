@@ -1,4 +1,6 @@
 package com.beysa.services.UserDomain.GeographicalLocation;
 
-public class GeographicalLocationRopository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GeographicalLocationRopository extends JpaRepository<GeographicalLocation, Long> {
 }
