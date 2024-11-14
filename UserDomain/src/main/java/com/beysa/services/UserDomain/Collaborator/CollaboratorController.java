@@ -12,7 +12,6 @@ import com.beysa.services.UserDomain.Middlewares.ResponseUtils;
 @RestController
 @RequestMapping("api/v1/staff")
 public class CollaboratorController {
-
     Codes codes = new Codes();
     Messages messages = new Messages();
     ResponseUtils response = new ResponseUtils();
