@@ -22,7 +22,7 @@ public class District {
     private String name;
 
     @ManyToOne
-    @Column(name = "id_province")
+    @JoinColumn(name = "id_province")
     private Province province;
 
     @Column(name = "status")

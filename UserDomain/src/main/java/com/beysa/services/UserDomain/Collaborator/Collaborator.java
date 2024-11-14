@@ -24,8 +24,7 @@ public class Collaborator {
     @JoinColumn(name = "id_staff")
     private Staff staff;
 
-    @ManyToOne
-    @JoinColumn(name = "level_education")
+    @Column(name="level_education")
     private String levelEducation;
 
     @Column(name = "study_qualification")

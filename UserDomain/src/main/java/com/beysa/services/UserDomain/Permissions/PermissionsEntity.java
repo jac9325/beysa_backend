@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "t_permissions")
-public class Permissions {
+public class PermissionsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_permissions")

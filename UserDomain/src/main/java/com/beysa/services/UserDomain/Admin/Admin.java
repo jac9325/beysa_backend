@@ -24,8 +24,7 @@ public class Admin {
     @JoinColumn(name = "id_staff")
     private Staff staff;
 
-    @ManyToOne
-    @JoinColumn(name = "branch_manager")
+    @Column(name = "branch_manager")
     private String branchManager;
 
     @Column(name = "type_admin")

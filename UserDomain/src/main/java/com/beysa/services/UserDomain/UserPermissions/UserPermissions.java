@@ -1,7 +1,6 @@
 package com.beysa.services.UserDomain.UserPermissions;
 
-import java.security.Permissions;
-
+import com.beysa.services.UserDomain.Permissions.PermissionsEntity;
 import com.beysa.services.UserDomain.User.UserEntity;
 
 import jakarta.persistence.Column;
@@ -28,12 +27,13 @@ public class UserPermissions{
     @Column(name = "id_user_permissions")
     private long id_user_permissions;
     
+    @ManyToOne
     @JoinColumn(name = "id_user")
     private UserEntity user;
     
     @ManyToOne
     @JoinColumn(name = "id_permissions")
-    private Permissions permissions;
+    private PermissionsEntity permissions;
 
     @Column(name = "status")
     private Integer status;
