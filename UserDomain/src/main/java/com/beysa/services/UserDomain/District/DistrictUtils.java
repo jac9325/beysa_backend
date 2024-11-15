@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.beysa.services.UserDomain.District.DTO.DistrictDto;
 
 public class DistrictUtils {
-    public DistrictDto convertDepartamentDto(District district){
+    public DistrictDto convertDistrictDto(District district){
         DistrictDto response = new DistrictDto();
         response.setIdDistrict(district.getIdDistrict());
         response.setName(district.getName());
@@ -15,9 +15,9 @@ public class DistrictUtils {
         return response;
     }
     
-    public List<DistrictDto> convertListDepartmentDto(List<District> listDistricts){
+    public List<DistrictDto> convertListDistrictDto(List<District> listDistricts){
         return listDistricts.stream()
-                .map(this::convertDepartamentDto)
+                .map(this::convertDistrictDto)
                 .collect(Collectors.toList());
 
     }

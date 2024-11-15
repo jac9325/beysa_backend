@@ -23,7 +23,7 @@ public class StaffDto {
     private String address;
     private String image;
     private LocalDateTime dateEntry;
-    private Long idIdgeographicalLocation;  
+    private Long idGeographicalLocation;
     private BigDecimal salary;
     private String contractType;
     private Integer status;

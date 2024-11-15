@@ -1,7 +1,9 @@
 package com.beysa.services.UserDomain.Department;
 
-import org.springframework.stereotype.Service;
+import com.beysa.services.UserDomain.Department.DTO.DepartmentDto;
+import java.util.List;
 
-@Service
-public class DepartmentService {
+public interface DepartmentService {
+    DepartmentDto getDepartmentById(Long idDepartment);
+    List<DepartmentDto> getAllDepartment();
 }

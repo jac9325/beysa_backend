@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.beysa.services.UserDomain.Department.DTO.DepartmentDto;
 
 public class DepartmentUtils {
-    public DepartmentDto convertDepartamentDto(Department department){
+    public DepartmentDto convertDepartmentDto(Department department){
         DepartmentDto response = new DepartmentDto();
         response.setIdDepartment(department.getIdDepartment());
         response.setName(department.getName());
@@ -17,7 +17,7 @@ public class DepartmentUtils {
     
     public List<DepartmentDto> convertListDepartmentDto(List<Department> listDepartment){
         return listDepartment.stream()
-                .map(this::convertDepartamentDto)
+                .map(this::convertDepartmentDto)
                 .collect(Collectors.toList());
 
     }

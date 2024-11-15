@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.beysa.services.UserDomain.GeographicalLocation.DTO.GeographicalLocationDto;
 
 public class GeographicalLocationUtils {
-    public GeographicalLocationDto convertGegraLocationDto(GeographicalLocation geo){
+    public GeographicalLocationDto convertGeographicalLocationDto(GeographicalLocation geo){
         GeographicalLocationDto response = new GeographicalLocationDto();
         response.setIdGeographicalLocation(geo.getIdGeographicalLocation());
         response.setIdCountry(geo.getCountry().getIdCountry());
@@ -16,9 +16,9 @@ public class GeographicalLocationUtils {
         return response;
     }
     
-    public List<GeographicalLocationDto> convertListGeographicalLocationDtos(List<GeographicalLocation> listGeo){
+    public List<GeographicalLocationDto> convertListGeographicalLocationDto(List<GeographicalLocation> listGeo){
         return listGeo.stream()
-                .map(this::convertGegraLocationDto)
+                .map(this::convertGeographicalLocationDto)
                 .collect(Collectors.toList());
 
     }
