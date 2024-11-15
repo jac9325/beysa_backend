@@ -24,4 +24,15 @@ public class SpecialityServiceImpl implements SpecialityService{
             throw new RuntimeException(e.getMessage());
         }
     }
+
+
+    @Transactional
+    public List<Speciality> addSpecialities(List<Speciality> specialities){
+        try {
+            List<Speciality> savedSpecialities = specialityRepository.saveAll(specialities);
+            return savedSpecialities;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
