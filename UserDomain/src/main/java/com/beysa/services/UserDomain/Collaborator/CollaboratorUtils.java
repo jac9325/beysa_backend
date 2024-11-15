@@ -5,16 +5,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.beysa.services.UserDomain.Collaborator.DTO.CollaboratorDtos;
+import com.beysa.services.UserDomain.Collaborator.DTO.CollaboratorDto;
 
 @Component
 public class CollaboratorUtils {
-    public CollaboratorDtos convertCollaboratorDtos(Collaborator collaborator) {
-        if (collaborator == null) {
-            return null;
-        }
-        
-        CollaboratorDtos dto = new CollaboratorDtos();
+    public CollaboratorDto convertCollaboratorDto(Collaborator collaborator) {
+        if (collaborator == null) return null;
+        CollaboratorDto dto = new CollaboratorDto();
         dto.setIdCollaborator(collaborator.getIdCollaborator());
         dto.setIdStaff(collaborator.getStaff().getIdStaff());
         dto.setLevelEducation(collaborator.getLevelEducation());
@@ -25,9 +22,9 @@ public class CollaboratorUtils {
         return dto;
     }
 
-    public List<CollaboratorDtos> convertListCollaboratorDtos(List<Collaborator> collaboratorList) {
+    public List<CollaboratorDto> convertListCollaboratorDto(List<Collaborator> collaboratorList) {
         return collaboratorList.stream()
-                               .map(this::convertCollaboratorDtos)
+                               .map(this::convertCollaboratorDto)
                                .collect(Collectors.toList());
     }
 }

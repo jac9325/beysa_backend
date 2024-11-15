@@ -78,5 +78,4 @@ public class Staff {
 
     @Column(name = "type_staff")
     private String typeStaff;
-
 }
