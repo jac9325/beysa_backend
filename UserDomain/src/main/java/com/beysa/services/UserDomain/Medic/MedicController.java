@@ -42,4 +42,37 @@ public class MedicController {
         }
     }
 
+    @PostMapping("/createMedic")
+    public ResponseEntity<?> createMedic(@RequestBody MedicDto Request){
+        try {
+            MedicDto medic =medicService.createMedic(Request);
+            return response.success(codes.created(),messages.created(), medic, null);
+        }catch(Exception e){
+            return response.error(codes.error(),messages.error() + e.getMessage(), null);
+        }
+    }
+
+    @DeleteMapping("/deleteMedic/{id}")
+    public ResponseEntity<?> deleteMedic(@PathVariable(value = "id") Long id) {
+        try {
+            Boolean result = medicService.deleteMedic(id);
+            if (result) {
+                return response.ok(codes.ok(), messages.ok(), null, null);
+            } else {
+                return response.error(codes.notFound(), messages.notFound(), null);}
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
+
+    @PutMapping("/updateMedic/{id}")
+    public ResponseEntity<?> updateMedic(@PathVariable(value = "id") Long id, @RequestBody MedicDto request){
+        try{
+            if (!id.equals(request.getIdMedic())) return response.error(codes.error(), messages.error(), null);
+            MedicDto medic = medicService.updateMedic(id, request);
+            return response.success(codes.created(),messages.created(), medic, null);
+        }catch (Exception e){
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 }

@@ -10,10 +10,7 @@ import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDtos;
 @Component
 public class CashSessionUtils {
     public CashSessionDtos convertSessionDtos(CashSession entity) {
-        if (entity == null) {
-            return null;
-        }
-    
+        if (entity == null) return null;
         CashSessionDtos dto = new CashSessionDtos();
         dto.setIdCollaborator(entity.getIdCollaborator());
         dto.setName(entity.getName());

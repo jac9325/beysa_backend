@@ -8,6 +8,6 @@ public interface MedicService {
     MedicDto getMedicById(Long idMedic);
     List<MedicDto> getAllMedic();
     MedicDto createMedic(MedicDto request);
-    //MedicDto updateMedic(Long idMedic, MedicDto Request);
-    //Boolean deleteMedic(Long idMedic);
+    MedicDto updateMedic(Long idMedic, MedicDto request);
+    Boolean deleteMedic(Long idMedic);
 }

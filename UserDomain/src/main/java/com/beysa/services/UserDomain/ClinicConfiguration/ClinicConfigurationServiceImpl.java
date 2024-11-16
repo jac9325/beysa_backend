@@ -28,6 +28,6 @@ public class ClinicConfigurationServiceImpl implements ClinicConfigurationServic
     public ClinicConfigurationDto getClinicConfigurationByIdClinic(Long idClinic){
         return clinicConfigurationRepository.findByIdClinic(idClinic)
                 .map(clinicConfigurationUtils::convertClinicConfigurationDto)
-                .orElseThrow(() -> new RuntimeException("ClinicConfiguration not found for idCLinic: " + idClinic));
+                .orElseThrow(() -> new RuntimeException("ClinicConfiguration not found for idClinic: " + idClinic));
     }
 }
