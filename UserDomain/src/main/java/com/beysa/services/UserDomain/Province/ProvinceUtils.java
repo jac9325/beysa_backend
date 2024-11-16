@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import com.beysa.services.UserDomain.Province.DTO.ProvinceDto;
 
 public class ProvinceUtils {
-    public ProvinceDto converProvinceDto(Province province){
+    public ProvinceDto convertProvinceDto(Province province){
         ProvinceDto response = new ProvinceDto();
         response.setIdProvince(province.getIdProvince());
         response.setName(province.getName());
@@ -16,7 +16,7 @@ public class ProvinceUtils {
     
     public List<ProvinceDto> convertListProvinceDto(List<Province> listProvince){
         return listProvince.stream()
-                .map(this::converProvinceDto)
+                .map(this::convertProvinceDto)
                 .collect(Collectors.toList());
 
     }

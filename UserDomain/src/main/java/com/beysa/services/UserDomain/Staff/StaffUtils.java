@@ -24,12 +24,11 @@ public class StaffUtils {
         dto.setAddress(staff.getAddress());
         dto.setImage(staff.getImage());
         dto.setDateEntry(staff.getDateEntry());
-        dto.setIdIdgeographicalLocation(staff.getGeographicalLocation().getIdGeographicalLocation());
+        dto.setIdGeographicalLocation(staff.getGeographicalLocation().getIdGeographicalLocation());
         dto.setSalary(staff.getSalary());
         dto.setContractType(staff.getContractType());
         dto.setStatus(staff.getStatus());
         dto.setTypeStaff(staff.getTypeStaff());
-
         return dto;
     }
 
