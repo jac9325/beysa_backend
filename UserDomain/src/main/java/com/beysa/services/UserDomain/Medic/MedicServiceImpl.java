@@ -39,8 +39,43 @@ public class MedicServiceImpl implements MedicService{
     @Override
     public MedicDto createMedic(MedicDto request){
         if(request == null) throw new RuntimeException("MedicDto is null");
-        Medic medic = medicUtils.convertMedicEntity(request);
-        medicRepository.save(medic);
-        return medicUtils.convertMedicDto(medic);
+        try {
+            Medic medic = medicUtils.convertMedicEntity(request);
+            medicRepository.save(medic);
+            return medicUtils.convertMedicDto(medic);
+        }catch (Exception e){ throw new RuntimeException("Error during create operation: " + e.getMessage(), e);}
+
+    }
+
+    @Transactional
+    @Override
+    public Boolean deleteMedic(Long idMedic){
+        return medicRepository.findById(idMedic)
+                .map(medic -> {
+                    try {
+                        medicRepository.delete(medic);
+                        return true;
+                    } catch (Exception e) {throw new RuntimeException("Error during delete operation: " + e.getMessage(), e);}
+                })
+                .orElseThrow(() -> new RuntimeException("Personal not found for id: " + idMedic));
+    }
+
+    @Transactional
+    @Override
+    public MedicDto updateMedic(Long idMedic, MedicDto request) {
+        return medicRepository.findById(idMedic)
+                .map(existingMedic -> {
+                    try {
+                        Medic newRequest = medicUtils.convertMedicEntity(request);
+                        existingMedic.setSpeciality(newRequest.getSpeciality());
+                        existingMedic.setStaff(newRequest.getStaff());
+                        existingMedic.setProfessionalLicenseNumber(newRequest.getProfessionalLicenseNumber());
+                        existingMedic.setCreateAd(newRequest.getCreateAd());
+                        existingMedic.setUpdateAd(newRequest.getUpdateAd());
+                        Medic updatedMedic = medicRepository.save(existingMedic);
+                        return medicUtils.convertMedicDto(updatedMedic);
+                    } catch (Exception e){throw new RuntimeException("Error during update operation: " + e.getMessage(), e);}
+                })
+                .orElseThrow(() -> new RuntimeException("Medic not found for id: " + idMedic));
     }
 }

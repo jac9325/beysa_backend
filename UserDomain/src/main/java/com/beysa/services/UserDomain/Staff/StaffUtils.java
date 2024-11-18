@@ -32,7 +32,7 @@ public class StaffUtils {
         return dto;
     }
 
-    public List<StaffDto> conveListStaffDtos(List<Staff> staffList) {
+    public List<StaffDto> convertListStaffDto(List<Staff> staffList) {
         return staffList.stream()
                         .map(this::convertStaffDto)
                         .collect(Collectors.toList());

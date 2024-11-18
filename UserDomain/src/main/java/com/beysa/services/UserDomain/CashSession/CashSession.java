@@ -18,7 +18,7 @@ public class CashSession {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_cash_session")
-    private Long idCollaborator;
+    private Long idCashSession;
 
     @Column(name="name")
     private String name;

@@ -18,6 +18,5 @@ public class ProvinceUtils {
         return listProvince.stream()
                 .map(this::convertProvinceDto)
                 .collect(Collectors.toList());
-
     }
 }
