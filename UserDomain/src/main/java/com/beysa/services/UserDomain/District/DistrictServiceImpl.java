@@ -27,6 +27,13 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Transactional(readOnly = true)
     @Override
+    public District getDistrictByIdEntity(Long idDistrict){
+        return districtRepository.findById(idDistrict)
+                .orElseThrow(() -> new RuntimeException("District not found for id: " + idDistrict));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<DistrictDto> getAllDistrict(){
         List<District> listDistrict = districtRepository.findAll();
         if(listDistrict.isEmpty()){

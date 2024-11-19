@@ -21,15 +21,15 @@ public class DepartmentController {
     Messages messages = new Messages();
     ResponseUtils response = new ResponseUtils();
 
-    @GetMapping("/getCountryById/{id}")
-    public ResponseEntity<?> getCountryById(@PathVariable(value = "id") Long id){
-        try{
-            DepartmentDto department = departmentService.getDepartmentById(id);
-            return response.ok(codes.ok(), messages.ok(), department, null);
-        }catch (Exception e){
-            return response.error(codes.error(), messages.error() + e.getMessage(), null);
-        }
-    }
+    // @GetMapping("/getCountryById/{id}")
+    // public ResponseEntity<?> getCountryById(@PathVariable(value = "id") Long id){
+    //     try{
+    //         DepartmentDto department = departmentService.getDepartmentById(id);
+    //         return response.ok(codes.ok(), messages.ok(), department, null);
+    //     }catch (Exception e){
+    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
+    //     }
+    // }
 
     @GetMapping("/getAllCountry")
     public ResponseEntity<?> getAllCountry(){

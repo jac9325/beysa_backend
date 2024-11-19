@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RolServiceImpl implements RolService{
@@ -22,6 +23,17 @@ public class RolServiceImpl implements RolService{
         }
     }
     
+    @Transactional
+    @Override
+    public Rol getRolByName(String name){
+        try {
+            Rol currentRol = rolRepository.getRolByName(name).orElse(null);
+            return currentRol;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());   
+        }
+    }
+
     @Override
     public List<Rol> getAllRol() {
         try {

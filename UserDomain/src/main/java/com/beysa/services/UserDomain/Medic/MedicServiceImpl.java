@@ -1,27 +1,38 @@
 package com.beysa.services.UserDomain.Medic;
 
-import com.beysa.services.UserDomain.Medic.DTO.MedicDto;
-import com.beysa.services.UserDomain.Speciality.Speciality;
-import com.beysa.services.UserDomain.Staff.Staff;
-import com.beysa.services.UserDomain.Staff.StaffRepository;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.beysa.services.UserDomain.Medic.DTO.MedicDto;
 
 @Service
 public class MedicServiceImpl implements MedicService{
 
-    // private final MedicRepository medicRepository;
-    // private final MedicUtils medicUtils;
-    // private final StaffRepository staffRepository;
 
-    // public MedicServiceImpl(MedicRepository medicRepository, MedicUtils medicUtils, StaffRepository staffRepository){
-    //     this.medicRepository = medicRepository;
-    //     this.medicUtils = medicUtils;
-    //     this.staffRepository = staffRepository;
-    // }
+
+    private final MedicRepository medicRepository;
+    private final MedicUtils medicUtils;
+
+    public MedicServiceImpl(MedicRepository medicRepository,
+    MedicUtils medicUtils){
+        this.medicRepository = medicRepository;
+        this.medicUtils = medicUtils;
+    }
+
+    @Transactional
+    @Override
+    public MedicDto saveMedic(Medic medic){
+        try {
+            medic = medicRepository.save(medic);
+            if (medic.getIdMedic()<= 0){
+                throw new RuntimeException("Error al guardar");
+            }
+            MedicDto medicResponse = medicUtils.convertMedicDto(medic);
+            return medicResponse;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 
     // @Transactional(readOnly = true)
     // @Override

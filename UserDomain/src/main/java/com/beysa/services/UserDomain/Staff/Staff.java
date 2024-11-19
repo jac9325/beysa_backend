@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.beysa.services.UserDomain.GeographicalLocation.GeographicalLocation;
 import com.beysa.services.UserDomain.IdentityDocument.IdentityDocument;
+import com.beysa.services.UserDomain.User.UserEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -77,5 +78,9 @@ public class Staff {
     private Integer status;
 
     @Column(name = "type_staff")
-    private String typeStaff;
+    private StaffEnum typeStaff;
+
+    @ManyToOne
+    @JoinColumn(name="id_user")
+    private UserEntity user;
 }

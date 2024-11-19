@@ -3,6 +3,8 @@ package com.beysa.services.UserDomain.Staff.DTO;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.beysa.services.UserDomain.Staff.StaffEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +29,6 @@ public class StaffDto {
     private BigDecimal salary;
     private String contractType;
     private Integer status;
-    private String typeStaff;
+    private StaffEnum typeStaff;
+    private Long idUser;
 }

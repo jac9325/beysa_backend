@@ -10,4 +10,5 @@ public interface MedicService {
     // MedicDto createMedic(MedicDto request);
     // MedicDto updateMedic(Long idMedic, MedicDto request);
     // Boolean deleteMedic(Long idMedic);
+    MedicDto saveMedic(Medic medic);
 }

@@ -25,17 +25,17 @@ public class UserController {
     @Autowired
     public UserService userService;
     
-    @PostMapping("/create/user/rols")
-    public ResponseEntity<?> createUsuarioRoles(@RequestBody UserRols request) {
-        try {
-            Boolean result = userService.createUserAll(request.getUser(), request.getRols());
-            if (result == null) {
-                return response.error(codes.error(), messages.error(), null);
-            }
-            return response.success(codes.created(), messages.created(), result, null);
-        } catch (Exception e) {
-            return response.error(codes.error(), messages.error() + e.getMessage(), null);
-        }
-    }
+    // @PostMapping("/create/user/rols")
+    // public ResponseEntity<?> createUsuarioRoles(@RequestBody UserRols request) {
+    //     try {
+    //         Boolean result = userService.createUserAll(request.getUser(), request.getRols());
+    //         if (result == null) {
+    //             return response.error(codes.error(), messages.error(), null);
+    //         }
+    //         return response.success(codes.created(), messages.created(), result, null);
+    //     } catch (Exception e) {
+    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
+    //     }
+    // }
     
 }

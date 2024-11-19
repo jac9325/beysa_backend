@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beysa.services.UserDomain.Clinic.Clinic;
 import com.beysa.services.UserDomain.Configuration.UsuarioSecurityConfig;
 import com.beysa.services.UserDomain.Rol.Rol;
+import com.beysa.services.UserDomain.UserClinic.UserClinic;
+import com.beysa.services.UserDomain.UserClinic.UserClinicService;
 import com.beysa.services.UserDomain.UserRoles.UserRol;
 import com.beysa.services.UserDomain.UserRoles.UserRolService;
 
@@ -19,6 +22,12 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRolService userRolService;
+
+    private final UserClinicService userClinicService;
+
+    public UserServiceImpl(UserClinicService userClinicService){
+        this.userClinicService = userClinicService;
+    }
 
     @Transactional
     public UserEntity createUsuario(UserEntity request) {
@@ -34,7 +43,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public Boolean createUserAll(UserEntity currentUser, List<Rol> currentRols){
+    public UserEntity createUserAll(UserEntity currentUser, List<Rol> currentRols, Clinic clinic){
         try {
             if (currentUser == null) {
                 return null;
@@ -54,8 +63,17 @@ public class UserServiceImpl implements UserService{
                 if (currentUsuarioRol.getId_rol_user() <= 0) {
                     return null;
                 }
-            }          
-            return true;
+            }     
+            UserClinic currentUserClinic = new UserClinic();
+            currentUserClinic.setClinic(clinic);
+            currentUserClinic.setIdUserClinic(0L);
+            currentUserClinic.setStatus(1);
+            currentUserClinic.setUser(currentUser);
+            Boolean resp = userClinicService.saveUserClinic(currentUserClinic);  
+            if (resp==false){
+                throw new RuntimeException("Error al guardar la relación entre Usuario y Clínica");
+            }
+            return currentUser;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

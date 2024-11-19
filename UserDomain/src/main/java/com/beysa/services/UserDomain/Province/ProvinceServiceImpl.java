@@ -27,6 +27,13 @@ public class ProvinceServiceImpl implements ProvinceService{
 
     @Transactional(readOnly = true)
     @Override
+    public Province getProvinceByIdEntity(Long idProvince){
+        return provinceRepository.findById(idProvince)
+                .orElseThrow(() -> new RuntimeException("Province not found for id: " + idProvince));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<ProvinceDto> getAllProvince(){
         List<Province> listProvince = provinceRepository.findAll();
         if(listProvince.isEmpty()){

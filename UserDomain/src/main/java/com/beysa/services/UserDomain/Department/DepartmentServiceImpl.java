@@ -19,9 +19,8 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Transactional(readOnly = true)
     @Override
-    public DepartmentDto getDepartmentById(Long idDepartment){
+    public Department getDepartmentById(Long idDepartment){
         return departmentRepository.findById(idDepartment)
-                .map(departmentUtils::convertDepartmentDto)
                 .orElseThrow(() -> new RuntimeException("Department not found for id: " + idDepartment));
     }
 

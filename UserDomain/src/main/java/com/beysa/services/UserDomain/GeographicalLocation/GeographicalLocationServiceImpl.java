@@ -23,4 +23,16 @@ public class GeographicalLocationServiceImpl implements GeographicalLocationServ
                 .map(geographicalLocationUtils::convertGeographicalLocationDto)
                 .orElseThrow(() -> new RuntimeException("GeographicalLocation not found for id: " + idGeographicalLocation));
     }
+
+    @Transactional
+    @Override
+    public GeographicalLocationDto saveGeoGraphical(GeographicalLocation geo){
+        try {
+            geo = geographicalLocationRepository.save(geo);
+            GeographicalLocationDto currentResponse = geographicalLocationUtils.convertGeographicalLocationDto(geo);
+            return currentResponse;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
