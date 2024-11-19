@@ -3,8 +3,11 @@ package com.beysa.services.UserDomain.Department;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.beysa.services.UserDomain.Department.DTO.DepartmentDto;
 
+@Component
 public class DepartmentUtils {
     public DepartmentDto convertDepartmentDto(Department department){
         DepartmentDto response = new DepartmentDto();

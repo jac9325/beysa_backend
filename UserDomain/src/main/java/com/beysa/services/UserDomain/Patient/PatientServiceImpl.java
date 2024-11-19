@@ -1,10 +1,13 @@
 package com.beysa.services.UserDomain.Patient;
 
 import com.beysa.services.UserDomain.Patient.DTO.PatientDto;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class PatientServiceImpl implements PatientService{
     
     private final PatientRepository patientRepository;

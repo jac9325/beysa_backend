@@ -1,6 +1,5 @@
 package com.beysa.services.UserDomain.Income.DTO;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.math.BigDecimal;

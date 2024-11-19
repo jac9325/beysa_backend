@@ -38,4 +38,7 @@ public class CashSession {
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "notes")
+    private String notes;
 }

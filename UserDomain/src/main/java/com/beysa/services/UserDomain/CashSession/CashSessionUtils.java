@@ -12,13 +12,14 @@ public class CashSessionUtils {
     public CashSessionDtos convertSessionDtos(CashSession entity) {
         if (entity == null) return null;
         CashSessionDtos dto = new CashSessionDtos();
-        dto.setIdCollaborator(entity.getIdCollaborator());
+        dto.setIdCashSession(entity.getIdCashSession());
         dto.setName(entity.getName());
         dto.setStartDate(entity.getStartDate());
         dto.setEndDate(entity.getEndDate());
         dto.setInitialAmount(entity.getInitialAmount());
         dto.setIdcashRegister(entity.getCashRegister().getIdCashRegister());
         dto.setStatus(entity.getStatus());
+        dto.setNotes(entity.getNotes());
         return dto;
     }
 

@@ -4,6 +4,8 @@ import com.beysa.services.UserDomain.Expense.DTO.ExpenseDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+@Component
 public class ExpenseUtils {
     public ExpenseDto convertExpenseDto(Expense expense){
         ExpenseDto response = new ExpenseDto();

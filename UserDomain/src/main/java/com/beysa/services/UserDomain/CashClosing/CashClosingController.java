@@ -29,13 +29,13 @@ public class CashClosingController {
         }
     }
 
-    @GetMapping("/getCashClosingByIdCashSession/{id}")
-    public ResponseEntity<?> getCashClosingByIdCashSession(@PathVariable(value = "id") Long id){
-        try{
-            CashClosingDto cashClosing = cashClosingService.getCashClosingByIdCashSession(id);
-            return response.ok(codes.ok(), messages.ok(), cashClosing, null);
-        }catch (Exception e){
-            return response.error(codes.error(), messages.error() + e.getMessage(), null);
-        }
-    }
+    // @GetMapping("/getCashClosingByIdCashSession/{id}")
+    // public ResponseEntity<?> getCashClosingByIdCashSession(@PathVariable(value = "id") Long id){
+    //     try{
+    //         CashClosingDto cashClosing = cashClosingService.getCashClosingByIdCashSession(id);
+    //         return response.ok(codes.ok(), messages.ok(), cashClosing, null);
+    //     }catch (Exception e){
+    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
+    //     }
+    // }
 }

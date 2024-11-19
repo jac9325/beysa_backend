@@ -5,6 +5,9 @@ import com.beysa.services.UserDomain.CashClosing.DTO.CashClosingDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CashClosingUtils {
     public CashClosingDto convertCashClosingDto(CashClosing cashClosing){
         CashClosingDto response = new CashClosingDto();

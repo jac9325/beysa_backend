@@ -31,13 +31,13 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping("/getExpenseByIdCashSession/{id}")
-    public ResponseEntity<?> getExpenseByIdCashSession(@PathVariable(value = "id") Long id){
-        try{
-            List<ExpenseDto> expense = expenseService.getExpenseByIdCashSession(id);
-            return response.ok(codes.ok(), messages.ok(), expense, null);
-        }catch (Exception e){
-            return response.error(codes.error(), messages.error() + e.getMessage(), null);
-        }
-    }
+    // @GetMapping("/getExpenseByIdCashSession/{id}")
+    // public ResponseEntity<?> getExpenseByIdCashSession(@PathVariable(value = "id") Long id){
+    //     try{
+    //         List<ExpenseDto> expense = expenseService.getExpenseByIdCashSession(id);
+    //         return response.ok(codes.ok(), messages.ok(), expense, null);
+    //     }catch (Exception e){
+    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
+    //     }
+    // }
 }

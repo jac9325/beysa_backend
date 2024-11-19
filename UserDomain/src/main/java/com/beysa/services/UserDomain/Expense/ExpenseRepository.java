@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
-    List<Expense> findByIdCashSession(Long idCashSession);
+    // List<Expense> findByIdCashSession(Long idCashSession);
 }

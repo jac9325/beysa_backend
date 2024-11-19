@@ -25,13 +25,13 @@ public class IncomeServiceImpl implements IncomeService{
                 .orElseThrow(() -> new RuntimeException("Income not found for id: " + idIncome));
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<IncomeDto> getIncomeByIdCashSession(Long idCashSession){
-        List<Income> incomes = incomeRepository.findByIdCashSession(idCashSession);
-        if (incomes.isEmpty()) {
-            throw new RuntimeException("Income not found for idCashSession: " + idCashSession);
-        }
-        return incomeUtils.convertListIncomeDto(incomes);
-    }
+    // @Transactional(readOnly = true)
+    // @Override
+    // public List<IncomeDto> getIncomeByIdCashSession(Long idCashSession){
+    //     List<Income> incomes = incomeRepository.findByIdCashSession(idCashSession);
+    //     if (incomes.isEmpty()) {
+    //         throw new RuntimeException("Income not found for idCashSession: " + idCashSession);
+    //     }
+    //     return incomeUtils.convertListIncomeDto(incomes);
+    // }
 }

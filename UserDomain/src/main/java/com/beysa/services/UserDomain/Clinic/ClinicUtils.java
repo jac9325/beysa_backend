@@ -4,6 +4,9 @@ import com.beysa.services.UserDomain.Clinic.DTO.ClinicDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ClinicUtils {
     public ClinicDto convertClinicDto(Clinic clinic){
         ClinicDto response = new ClinicDto();

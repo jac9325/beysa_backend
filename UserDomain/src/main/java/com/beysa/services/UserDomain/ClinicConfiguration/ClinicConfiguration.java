@@ -32,7 +32,7 @@ public class ClinicConfiguration {
     @Column(name = "pre_invoice_number")
     private String preInvoiceNumber;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_clinic")
     private Clinic clinic;
 

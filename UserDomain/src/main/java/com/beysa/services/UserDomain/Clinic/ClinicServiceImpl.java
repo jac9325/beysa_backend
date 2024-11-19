@@ -28,16 +28,16 @@ public class ClinicServiceImpl implements ClinicService{
                 .orElseThrow(() -> new RuntimeException("Clinic not found for id: " + idClinic));
     }
 
-    @Transactional
-    @Override
-    public ClinicAndConfigurationDto getClinicAndConfigurationById(Long idClinic){
-        /*Los servicios manejan RuntimeException para la validación*/
-        ClinicConfigurationDto clinicConfiguration = clinicConfigurationService.getClinicConfigurationByIdClinic(idClinic);
-        ClinicDto clinic = getClinicById(idClinic);
+    // @Transactional
+    // @Override
+    // public ClinicAndConfigurationDto getClinicAndConfigurationById(Long idClinic){
+    //     /*Los servicios manejan RuntimeException para la validación*/
+    //     ClinicConfigurationDto clinicConfiguration = clinicConfigurationService.getClinicConfigurationByIdClinic(idClinic);
+    //     ClinicDto clinic = getClinicById(idClinic);
 
-        ClinicAndConfigurationDto clinicAndConfiguration = new ClinicAndConfigurationDto();
-        clinicAndConfiguration.setClinic(clinic);
-        clinicAndConfiguration.setClinicConfiguration(clinicConfiguration);
-        return clinicAndConfiguration;
-    }
+    //     ClinicAndConfigurationDto clinicAndConfiguration = new ClinicAndConfigurationDto();
+    //     clinicAndConfiguration.setClinic(clinic);
+    //     clinicAndConfiguration.setClinicConfiguration(clinicConfiguration);
+    //     return clinicAndConfiguration;
+    // }
 }

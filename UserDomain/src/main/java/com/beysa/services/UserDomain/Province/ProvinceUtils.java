@@ -2,8 +2,11 @@ package com.beysa.services.UserDomain.Province;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.beysa.services.UserDomain.Province.DTO.ProvinceDto;
 
+@Component
 public class ProvinceUtils {
     public ProvinceDto convertProvinceDto(Province province){
         ProvinceDto response = new ProvinceDto();

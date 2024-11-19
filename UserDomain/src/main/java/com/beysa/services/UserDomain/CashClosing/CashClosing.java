@@ -52,7 +52,7 @@ public class CashClosing {
     @Column(name = "force_save")
     private Integer forceSave;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_cash_session")
     private CashSession cashSession;
 

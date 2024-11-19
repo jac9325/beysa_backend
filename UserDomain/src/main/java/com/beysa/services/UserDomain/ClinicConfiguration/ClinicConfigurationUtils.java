@@ -5,6 +5,9 @@ import com.beysa.services.UserDomain.ClinicConfiguration.DTO.ClinicConfiguration
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ClinicConfigurationUtils {
     public ClinicConfigurationDto convertClinicConfigurationDto(ClinicConfiguration clinicConfiguration){
         ClinicConfigurationDto response = new ClinicConfigurationDto();

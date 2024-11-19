@@ -3,8 +3,11 @@ package com.beysa.services.UserDomain.District;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import com.beysa.services.UserDomain.District.DTO.DistrictDto;
 
+@Component
 public class DistrictUtils {
     public DistrictDto convertDistrictDto(District district){
         DistrictDto response = new DistrictDto();

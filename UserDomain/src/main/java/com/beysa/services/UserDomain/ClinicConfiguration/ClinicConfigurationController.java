@@ -29,13 +29,13 @@ public class ClinicConfigurationController {
         }
     }
 
-    @GetMapping("/getClinicConfigurationByIdClinic/{id}")
-    public ResponseEntity<?> getClinicConfigurationByIdClinic(@PathVariable(value = "id") Long id){
-        try{
-            ClinicConfigurationDto clinicConfiguration = clinicConfigurationService.getClinicConfigurationByIdClinic(id);
-            return response.ok(codes.ok(), messages.ok(), clinicConfiguration, null);
-        }catch (Exception e){
-            return response.error(codes.error(), messages.error() + e.getMessage(), null);
-        }
-    }
+    // @GetMapping("/getClinicConfigurationByIdClinic/{id}")
+    // public ResponseEntity<?> getClinicConfigurationByIdClinic(@PathVariable(value = "id") Long id){
+    //     try{
+    //         ClinicConfigurationDto clinicConfiguration = clinicConfigurationService.getClinicConfigurationByIdClinic(id);
+    //         return response.ok(codes.ok(), messages.ok(), clinicConfiguration, null);
+    //     }catch (Exception e){
+    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
+    //     }
+    // }
 }

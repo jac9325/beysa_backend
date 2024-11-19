@@ -4,5 +4,5 @@ import com.beysa.services.UserDomain.ClinicConfiguration.DTO.ClinicConfiguration
 
 public interface ClinicConfigurationService {
     ClinicConfigurationDto getClinicConfigurationById(Long idClinicConfiguration);
-    ClinicConfigurationDto getClinicConfigurationByIdClinic(Long idClinic);
+    // ClinicConfigurationDto getClinicConfigurationByIdClinic(Long idClinic);
 }

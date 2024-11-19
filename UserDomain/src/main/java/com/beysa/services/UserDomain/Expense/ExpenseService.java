@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ExpenseService {
     ExpenseDto getExpenseById(Long idExpense);
-    List<ExpenseDto> getExpenseByIdCashSession(Long idCashSession);
+    // List<ExpenseDto> getExpenseByIdCashSession(Long idCashSession);
 }

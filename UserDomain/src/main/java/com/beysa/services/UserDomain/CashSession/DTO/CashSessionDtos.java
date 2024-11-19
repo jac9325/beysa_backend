@@ -11,11 +11,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CashSessionDtos {
-    private Long idCollaborator;
+    private Long idCashSession;
     private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private BigDecimal initialAmount;
     private Long idcashRegister; 
+    private String notes;
     private Integer status;
 }

@@ -24,13 +24,13 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .orElseThrow(() -> new RuntimeException("Expense not found for id: " + idExpense));
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<ExpenseDto> getExpenseByIdCashSession(Long idCashSession){
-        List<Expense> expenses = expenseRepository.findByIdCashSession(idCashSession);
-        if (expenses.isEmpty()) {
-            throw new RuntimeException("Expense not found for idCashSession: " + idCashSession);
-        }
-        return expenseUtils.convertListExpenseDto(expenses);
-    }
+    // @Transactional(readOnly = true)
+    // @Override
+    // public List<ExpenseDto> getExpenseByIdCashSession(Long idCashSession){
+    //     List<Expense> expenses = expenseRepository.findByIdCashSession(idCashSession);
+    //     if (expenses.isEmpty()) {
+    //         throw new RuntimeException("Expense not found for idCashSession: " + idCashSession);
+    //     }
+    //     return expenseUtils.convertListExpenseDto(expenses);
+    // }
 }
