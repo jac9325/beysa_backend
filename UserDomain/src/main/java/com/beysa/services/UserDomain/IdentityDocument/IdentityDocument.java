@@ -21,4 +21,7 @@ public class IdentityDocument {
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "symbol")
+    private String symbol;
 }

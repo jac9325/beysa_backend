@@ -12,6 +12,7 @@ public class GeographicalLocationUtils {
         GeographicalLocationDto response = new GeographicalLocationDto();
         response.setIdGeographicalLocation(geo.getIdGeographicalLocation());
         response.setIdCountry(geo.getCountry().getIdCountry());
+        response.setIdDepartment(geo.getDepartment().getIdDepartment());
         response.setIdProvince(geo.getProvince().getIdProvince());
         response.setIdDistrict(geo.getDistrict().getIdDistrict());
         response.setStatus(geo.getStatus());

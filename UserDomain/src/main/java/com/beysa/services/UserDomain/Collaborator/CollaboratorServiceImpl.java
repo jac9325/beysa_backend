@@ -17,6 +17,18 @@ public class CollaboratorServiceImpl implements CollaboratorService{
         this.collaboratorUtils = collaboratorUtils;
     }
 
+    @Transactional
+    @Override
+    public CollaboratorDto saveCollaborator(Collaborator collaborator){
+        try {
+            collaborator = collaboratorRepository.save(collaborator);
+            CollaboratorDto collaboratorResponse = collaboratorUtils.convertCollaboratorDto(collaborator);
+            return collaboratorResponse;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     @Transactional(readOnly = true)
     @Override
     public CollaboratorDto getCollaboratorById(Long idCollaborator){

@@ -1,8 +1,31 @@
 package com.beysa.services.UserDomain.Admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
 
 @Service
 public class AdminServiceImpl implements AdminService{
+    @Autowired
+    AdminRepository adminRepository;
 
+    private final AdminUtils adminUtils;
+
+    public AdminServiceImpl(AdminUtils adminUtils){
+        this.adminUtils = adminUtils;
+    }
+
+    @Transactional
+    @Override
+    public AdminDtos saveAdmin(AdminEntity admin){
+        try {
+            AdminEntity currentAdmin = adminRepository.save(admin);
+            AdminDtos response = adminUtils.converAdminDtos(currentAdmin);
+            return response;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

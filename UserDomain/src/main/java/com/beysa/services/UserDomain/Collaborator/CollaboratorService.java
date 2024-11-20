@@ -7,4 +7,5 @@ import java.util.List;
 public interface CollaboratorService {
     CollaboratorDto getCollaboratorById(Long idCollaborator);
     List<CollaboratorDto> getAllCollaborator();
+    CollaboratorDto saveCollaborator(Collaborator collaborator);
 }

@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -43,6 +42,12 @@ public class UserEntity {
 
     @Column(name = "is_main")
     private Integer is_main;
+
+    @Column(name = "type_user")
+    private UserEnum type_user;
+
+    @Column(name = "email")
+    private String email;
     
     @ManyToMany
     @JoinTable(

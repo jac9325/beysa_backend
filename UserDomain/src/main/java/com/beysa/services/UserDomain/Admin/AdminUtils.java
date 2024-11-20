@@ -10,7 +10,7 @@ import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
 
 @Component
 public class AdminUtils {
-    public AdminDtos converAdminDtos(Admin admin) {
+    public AdminDtos converAdminDtos(AdminEntity admin) {
         AdminDtos dto = new AdminDtos();
         dto.setIdAdmin(admin.getIdAdmin());
         dto.setIdStaff(admin.getStaff().getIdStaff());
@@ -22,7 +22,7 @@ public class AdminUtils {
         return dto;
     }
 
-    public List<AdminDtos> toDtoListAdminDtos(List<Admin> adminList) {
+    public List<AdminDtos> toDtoListAdminDtos(List<AdminEntity> adminList) {
         return adminList.stream()
                         .map(this::converAdminDtos)
                         .collect(Collectors.toList());

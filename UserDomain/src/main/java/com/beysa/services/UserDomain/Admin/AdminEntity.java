@@ -14,7 +14,7 @@ import com.beysa.services.UserDomain.Staff.Staff;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_admin")
-public class Admin {
+public class AdminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_admin")
