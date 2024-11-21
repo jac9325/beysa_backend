@@ -5,13 +5,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDtos;
+import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDto;
 
 @Component
 public class CashSessionUtils {
-    public CashSessionDtos convertSessionDtos(CashSession entity) {
+    public CashSessionDto convertCashSessionDto(CashSession entity) {
         if (entity == null) return null;
-        CashSessionDtos dto = new CashSessionDtos();
+        CashSessionDto dto = new CashSessionDto();
         dto.setIdCashSession(entity.getIdCashSession());
         dto.setName(entity.getName());
         dto.setStartDate(entity.getStartDate());
@@ -23,9 +23,9 @@ public class CashSessionUtils {
         return dto;
     }
 
-    public List<CashSessionDtos> toDTOList(List<CashSession> entities) {
+    public List<CashSessionDto> convertListCashSessionDto(List<CashSession> entities) {
         return entities.stream()
-                       .map(this::convertSessionDtos)
+                       .map(this::convertCashSessionDto)
                        .collect(Collectors.toList());
     }
 }

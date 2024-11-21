@@ -11,7 +11,6 @@ import com.beysa.services.UserDomain.Staff.DTO.StaffDto;
 public class StaffUtils {
      public StaffDto convertStaffDto(Staff staff) {
         StaffDto dto = new StaffDto();
-
         dto.setIdStaff(staff.getIdStaff());
         dto.setName(staff.getName());
         dto.setLastName(staff.getLastName());

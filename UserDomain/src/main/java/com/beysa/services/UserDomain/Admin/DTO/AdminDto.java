@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminDtos {
+public class AdminDto {
     private Long idAdmin;
     private Long idStaff;            
     private String branchManager;

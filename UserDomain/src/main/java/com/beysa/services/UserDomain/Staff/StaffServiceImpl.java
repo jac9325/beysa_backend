@@ -1,17 +1,15 @@
 package com.beysa.services.UserDomain.Staff;
 
-import java.math.BigDecimal;
-import java.security.Permission;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.beysa.services.UserDomain.Admin.AdminEntity;
 import com.beysa.services.UserDomain.Admin.AdminService;
-import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
+import com.beysa.services.UserDomain.Admin.DTO.AdminDto;
 import com.beysa.services.UserDomain.Clinic.Clinic;
 import com.beysa.services.UserDomain.Clinic.ClinicService;
 import com.beysa.services.UserDomain.Collaborator.Collaborator;
@@ -37,7 +35,6 @@ import com.beysa.services.UserDomain.District.District;
 import com.beysa.services.UserDomain.District.DistrictService;
 import com.beysa.services.UserDomain.GeographicalLocation.GeographicalLocation;
 import com.beysa.services.UserDomain.GeographicalLocation.GeographicalLocationService;
-import com.beysa.services.UserDomain.GeographicalLocation.GeographicalLocationServiceImpl;
 import com.beysa.services.UserDomain.GeographicalLocation.DTO.GeographicalLocationDto;
 import com.beysa.services.UserDomain.IdentityDocument.IdentityDocument;
 import com.beysa.services.UserDomain.IdentityDocument.IdentityDocumentService;
@@ -52,6 +49,7 @@ import com.beysa.services.UserDomain.UserPermissions.UserPermissionsService;
 import com.beysa.services.UserDomain.UserPermissions.DTO.UserPermissionsDto;
 
 @Service
+@RequiredArgsConstructor
 public class StaffServiceImpl implements StaffService{
 
     private final MedicService medicService;
@@ -72,43 +70,6 @@ public class StaffServiceImpl implements StaffService{
     private final UserPermissionsService userPermissionsService;
     private final PermissionsService permissionsService;
 
-    public StaffServiceImpl(
-        MedicService medicService,
-        CountryService countryService,
-        DepartmentService departmentService,
-        ProvinceService provinceService,
-        DistrictService districtService,
-        GeographicalLocationService geographicalLocationService,
-        UserService userService,
-        IdentityDocumentService identityDocumentService,
-        StaffRepository staffRepository,
-        SpecialityService specialityService,
-        ClinicService clinicService,
-        RolService rolService,
-        CollaboratorService collaboratorService,
-        StaffUtils staffUtils,
-        AdminService adminService,
-        UserPermissionsService userPermissionsService,
-        PermissionsService permissionsService
-        ){
-        this.medicService = medicService;
-        this.countryService = countryService;
-        this.departmentService = departmentService;
-        this.provinceService = provinceService;
-        this.districtService = districtService;
-        this.geographicalLocationService = geographicalLocationService;
-        this.userService = userService;
-        this.identityDocumentService = identityDocumentService;
-        this.staffRepository = staffRepository;
-        this.specialityService = specialityService;
-        this.clinicService = clinicService;
-        this.rolService = rolService;
-        this.collaboratorService = collaboratorService;
-        this.staffUtils = staffUtils;
-        this.adminService = adminService;
-        this.userPermissionsService = userPermissionsService;
-        this.permissionsService = permissionsService;
-    }
 
     @Transactional
     @Override
@@ -362,7 +323,7 @@ public class StaffServiceImpl implements StaffService{
             GeographicalLocationDto currentGeo = staffAdmin.getGeographicalLocation();
             UserEntity currentUser = staffAdmin.getUser();
             StaffDto staffDto = staffAdmin.getStaff();
-            AdminDtos adminDtos = staffAdmin.getAdmin();
+            AdminDto adminDtos = staffAdmin.getAdmin();
             List<UserPermissionsDto> currentListPermissions = staffAdmin.getUserPermissions();
             Clinic currentClinic = clinicService.getClinicByIdEntity(staffAdmin.getIdClinic());
             if (currentClinic == null){
@@ -464,7 +425,7 @@ public class StaffServiceImpl implements StaffService{
             currentAdmin.setCreateAd(adminDtos.getCreateAd());
             currentAdmin.setUpdateAd(adminDtos.getUpdateAd());
             currentAdmin.setStatus(adminDtos.getStatus());
-            AdminDtos adminResponse = adminService.saveAdmin(currentAdmin);
+            AdminDto adminResponse = adminService.saveAdmin(currentAdmin);
 
            StaffAdmin currentStaffResponse = new StaffAdmin();
             currentStaffResponse.setGeographicalLocation(geoResponse);

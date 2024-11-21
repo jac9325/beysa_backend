@@ -1,13 +1,19 @@
 package com.beysa.services.UserDomain.UserClinic;
 
+import com.beysa.services.UserDomain.UserClinic.DTO.UserClinicDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class UserClinicServiceImpl implements UserClinicService {
     @Autowired
-    UserClinicRepository userClinicRepository;
+    private final UserClinicRepository userClinicRepository;
+    private final UserClinicUtils userClinicUtils;
 
     @Transactional
     @Override
@@ -21,5 +27,23 @@ public class UserClinicServiceImpl implements UserClinicService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserClinicDto getUserClinicById(Long idUserClinic){
+        return userClinicRepository.findById(idUserClinic)
+                .map(userClinicUtils::convertUserClinicDto)
+                .orElseThrow(() -> new RuntimeException("UserClinic not found for id: " + idUserClinic));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<UserClinicDto> getUserClinicByIdClinic(Long idClinic){
+        List<UserClinic> userClinic = userClinicRepository.findByIdClinic(idClinic);
+        if (userClinic.isEmpty()) {
+            throw new RuntimeException("No userClinic records found in the database.");
+        }
+        return userClinicUtils.convertListUserClinicDto(userClinic);
     }
 }

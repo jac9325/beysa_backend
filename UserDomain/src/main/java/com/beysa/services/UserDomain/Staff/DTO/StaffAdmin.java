@@ -2,9 +2,7 @@ package com.beysa.services.UserDomain.Staff.DTO;
 
 import java.util.List;
 
-import com.beysa.services.UserDomain.Admin.AdminEntity;
-import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
-import com.beysa.services.UserDomain.Collaborator.DTO.CollaboratorDto;
+import com.beysa.services.UserDomain.Admin.DTO.AdminDto;
 import com.beysa.services.UserDomain.GeographicalLocation.DTO.GeographicalLocationDto;
 import com.beysa.services.UserDomain.User.UserEntity;
 import com.beysa.services.UserDomain.UserPermissions.DTO.UserPermissionsDto;
@@ -18,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StaffAdmin {
     StaffDto staff;
-    AdminDtos admin;
+    AdminDto admin;
     GeographicalLocationDto geographicalLocation;
     UserEntity user;
     Long idClinic;

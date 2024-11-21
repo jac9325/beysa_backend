@@ -2,21 +2,18 @@ package com.beysa.services.UserDomain.Patient;
 
 import com.beysa.services.UserDomain.Patient.DTO.PatientDto;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService{
     
     private final PatientRepository patientRepository;
     private final PatientUtils patientUtils;
-
-    public PatientServiceImpl(PatientRepository patientRepository, PatientUtils patientUtils){
-        this.patientRepository = patientRepository;
-        this.patientUtils = patientUtils;
-    }
 
     @Transactional(readOnly = true)
     @Override

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CashSessionDtos {
+public class CashSessionDto {
     private Long idCashSession;
     private String name;
     private LocalDateTime startDate;

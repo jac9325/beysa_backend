@@ -1,23 +1,17 @@
 package com.beysa.services.UserDomain.Medic;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.beysa.services.UserDomain.Medic.DTO.MedicDto;
 
 @Service
+@RequiredArgsConstructor
 public class MedicServiceImpl implements MedicService{
-
-
 
     private final MedicRepository medicRepository;
     private final MedicUtils medicUtils;
-
-    public MedicServiceImpl(MedicRepository medicRepository,
-    MedicUtils medicUtils){
-        this.medicRepository = medicRepository;
-        this.medicUtils = medicUtils;
-    }
 
     @Transactional
     @Override
@@ -25,22 +19,21 @@ public class MedicServiceImpl implements MedicService{
         try {
             medic = medicRepository.save(medic);
             if (medic.getIdMedic()<= 0){
-                throw new RuntimeException("Error al guardar");
+                throw new RuntimeException("Error saving medic");
             }
-            MedicDto medicResponse = medicUtils.convertMedicDto(medic);
-            return medicResponse;
+            return medicUtils.convertMedicDto(medic);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
-    // @Transactional(readOnly = true)
-    // @Override
-    // public MedicDto getMedicById(Long idMedic){
-    //     return medicRepository.findById(idMedic)
-    //             .map(medicUtils::convertMedicDto)
-    //             .orElseThrow(() -> new RuntimeException("Medic not found for id: " + idMedic));
-    // }
+    @Transactional(readOnly = true)
+    @Override
+    public MedicDto getMedicById(Long idMedic){
+        return medicRepository.findById(idMedic)
+                .map(medicUtils::convertMedicDto)
+                .orElseThrow(() -> new RuntimeException("Medic not found for id: " + idMedic));
+    }
 
     // @Transactional(readOnly = true)
     // @Override

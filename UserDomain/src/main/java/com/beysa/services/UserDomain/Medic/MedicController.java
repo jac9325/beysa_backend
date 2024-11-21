@@ -15,8 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/medic")
 public class MedicController {
-    // @Autowired
-    // private MedicService medicService;
+    //@Autowired
+    //private MedicService medicService;
 
     // Codes codes = new Codes();
     // Messages messages = new Messages();
