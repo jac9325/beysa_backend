@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("api/v1/rolePermissions")
+@RequestMapping("api/v1/role/permissions")
 public class RolePermissionsController {
     @Autowired
     private RolePermissionsService rolePermissionsService;

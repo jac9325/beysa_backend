@@ -1,9 +1,9 @@
 package com.beysa.services.UserDomain.Owner;
 
-import com.beysa.services.UserDomain.Owner.DTO.OwnerDto;
 import com.beysa.services.UserDomain.Middlewares.Codes;
 import com.beysa.services.UserDomain.Middlewares.Messages;
 import com.beysa.services.UserDomain.Middlewares.ResponseUtils;
+import com.beysa.services.UserDomain.Owner.DTO.OwnerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

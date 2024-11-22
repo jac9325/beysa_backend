@@ -15,55 +15,55 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/medic")
 public class MedicController {
-    //@Autowired
-    //private MedicService medicService;
+    @Autowired
+    private MedicService medicService;
 
-    // Codes codes = new Codes();
-    // Messages messages = new Messages();
-    // ResponseUtils response = new ResponseUtils();
+    Codes codes = new Codes();
+    Messages messages = new Messages();
+    ResponseUtils response = new ResponseUtils();
 
-    // @GetMapping("/getMedicById/{id}")
-    // public ResponseEntity<?> getMedicById(@PathVariable(value = "id") Long id){
-    //     try{
-    //         MedicDto medic = medicService.getMedicById(id);
-    //         return response.ok(codes.ok(), messages.ok(), medic, null);
-    //     }catch (Exception e){
-    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
-    //     }
-    // }
+    @GetMapping("/getMedicById/{id}")
+    public ResponseEntity<?> getMedicById(@PathVariable(value = "id") Long id){
+        try{
+            MedicDto medic = medicService.getMedicById(id);
+            return response.ok(codes.ok(), messages.ok(), medic, null);
+        }catch (Exception e){
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 
-    // @GetMapping("/getAllMedic")
-    // public ResponseEntity<?> getAllMedic(){
-    //     try{
-    //         List<MedicDto> listMedic = medicService.getAllMedic();
-    //         return response.ok(codes.ok(), messages.ok(), listMedic, null);
-    //     }catch (Exception e){
-    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
-    //     }
-    // }
+    @GetMapping("/getAllMedic")
+    public ResponseEntity<?> getAllMedic(){
+        try{
+            List<MedicDto> listMedic = medicService.getAllMedic();
+            return response.ok(codes.ok(), messages.ok(), listMedic, null);
+        }catch (Exception e){
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 
-    // @PostMapping("/createMedic")
-    // public ResponseEntity<?> createMedic(@RequestBody MedicDto Request){
-    //     try {
-    //         MedicDto medic =medicService.createMedic(Request);
-    //         return response.success(codes.created(),messages.created(), medic, null);
-    //     }catch(Exception e){
-    //         return response.error(codes.error(),messages.error() + e.getMessage(), null);
-    //     }
-    // }
+    /*@PostMapping("/createMedic")
+    public ResponseEntity<?> createMedic(@RequestBody MedicDto Request){
+        try {
+            MedicDto medic =medicService.createMedic(Request);
+            return response.success(codes.created(),messages.created(), medic, null);
+        }catch(Exception e){
+            return response.error(codes.error(),messages.error() + e.getMessage(), null);
+        }
+    }*/
 
-    // @DeleteMapping("/deleteMedic/{id}")
-    // public ResponseEntity<?> deleteMedic(@PathVariable(value = "id") Long id) {
-    //     try {
-    //         Boolean result = medicService.deleteMedic(id);
-    //         if (result) {
-    //             return response.ok(codes.ok(), messages.ok(), null, null);
-    //         } else {
-    //             return response.error(codes.notFound(), messages.notFound(), null);}
-    //     } catch (Exception e) {
-    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
-    //     }
-    // }
+    @DeleteMapping("/deleteMedic/{id}")
+    public ResponseEntity<?> deleteMedic(@PathVariable(value = "id") Long id) {
+        try {
+            Boolean result = medicService.deleteMedic(id);
+            if (result) {
+                return response.ok(codes.ok(), messages.ok(), null, null);
+            } else {
+                return response.error(codes.notFound(), messages.notFound(), null);}
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 
     // @PutMapping("/updateMedic/{id}")
     // public ResponseEntity<?> updateMedic(@PathVariable(value = "id") Long id, @RequestBody MedicDto request){

@@ -1,6 +1,6 @@
 package com.beysa.services.UserDomain.CashSession;
 
-import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDto;
+import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDtos;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,19 +15,19 @@ public class CashSessionServiceImpl implements CashSessionService{
 
     @Transactional(readOnly = true)
     @Override
-    public CashSessionDto getCashSessionById(Long idCashSession){
+    public CashSessionDtos getCashSessionById(Long idCashSession){
         return cashSessionRepository.findById(idCashSession)
-                .map(cashSessionUtils::convertCashSessionDto)
-                .orElseThrow(() -> new RuntimeException("CashSession not found for id: " + idCashSession));
+                .map(cashSessionUtils::convertCashSessionDtos)
+                .orElseThrow(() -> new RuntimeException("CajaSesión no encontrado por el id: " + idCashSession));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<CashSessionDto> getCashSessionByIdCashRegister(Long idCashRegister){
+    public List<CashSessionDtos> getCashSessionByIdCashRegister(Long idCashRegister){
         List<CashSession> cashSession = cashSessionRepository.findByIdCashRegister(idCashRegister);
         if (cashSession.isEmpty()) {
-            throw new RuntimeException("No cashSession records found in the database.");
+            throw new RuntimeException("No se encontraron registros de CajaSesión en la base de datos.");
         }
-        return cashSessionUtils.convertListCashSessionDto(cashSession);
+        return cashSessionUtils.convertListCashSessionDtos(cashSession);
     }
 }

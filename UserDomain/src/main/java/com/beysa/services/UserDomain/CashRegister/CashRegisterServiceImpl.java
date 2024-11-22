@@ -17,6 +17,6 @@ public class CashRegisterServiceImpl implements CashRegisterService{
     public CashRegisterDto getCashRegisterById(Long idCashRegister){
         return cashRegisterRepository.findById(idCashRegister)
                 .map(cashRegisterUtils::convertCashRegisterDto)
-                .orElseThrow(() -> new RuntimeException("CashRegister not found for id: " + idCashRegister));
+                .orElseThrow(() -> new RuntimeException("CajaRegistro no encontrado por el id: " + idCashRegister));
     }
 }

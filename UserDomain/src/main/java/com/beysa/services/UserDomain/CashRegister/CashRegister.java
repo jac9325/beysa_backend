@@ -34,5 +34,6 @@ public class CashRegister {
 
     @ManyToOne
     @JoinColumn(name="id_collaborator")
-    private Collaborator Collaborator;
+    private Collaborator collaborator;
+
 }

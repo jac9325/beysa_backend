@@ -20,7 +20,7 @@ public class PatientServiceImpl implements PatientService{
     public PatientDto getPatientById(Long idPatient){
         return patientRepository.findById(idPatient)
                 .map(patientUtils::convertPatientDto)
-                .orElseThrow(() -> new RuntimeException("Patient not found for id: " + idPatient));
+                .orElseThrow(() -> new RuntimeException("Paciente no encontrado por el id: " + idPatient));
     }
 
     @Transactional(readOnly = true)
@@ -28,7 +28,7 @@ public class PatientServiceImpl implements PatientService{
     public List<PatientDto> getAllPatient(){
         List<Patient> listPatient = patientRepository.findAll();
         if(listPatient.isEmpty()){
-            throw new RuntimeException("No Patient records found in the database");
+            throw new RuntimeException("No se encontraron registros de Paciente en la base de datos.");
         }
         return patientUtils.convertListPatientDto(listPatient);
     }

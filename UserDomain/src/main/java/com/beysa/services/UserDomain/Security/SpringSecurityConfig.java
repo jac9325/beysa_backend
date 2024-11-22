@@ -50,7 +50,7 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/usuario/enviarCorreoPassword/{correo}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/v1/usuario/confirmarCorreo/{token}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/usuario/createUser").permitAll()
-                
+
                 .anyRequest()
                 .authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))

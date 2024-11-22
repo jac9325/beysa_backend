@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.beysa.services.UserDomain.Admin.AdminEntity;
 import com.beysa.services.UserDomain.Admin.AdminService;
-import com.beysa.services.UserDomain.Admin.DTO.AdminDto;
+import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
 import com.beysa.services.UserDomain.Clinic.Clinic;
 import com.beysa.services.UserDomain.Clinic.ClinicService;
 import com.beysa.services.UserDomain.Collaborator.Collaborator;
@@ -323,7 +323,7 @@ public class StaffServiceImpl implements StaffService{
             GeographicalLocationDto currentGeo = staffAdmin.getGeographicalLocation();
             UserEntity currentUser = staffAdmin.getUser();
             StaffDto staffDto = staffAdmin.getStaff();
-            AdminDto adminDtos = staffAdmin.getAdmin();
+            AdminDtos adminDtos = staffAdmin.getAdmin();
             List<UserPermissionsDto> currentListPermissions = staffAdmin.getUserPermissions();
             Clinic currentClinic = clinicService.getClinicByIdEntity(staffAdmin.getIdClinic());
             if (currentClinic == null){
@@ -425,7 +425,7 @@ public class StaffServiceImpl implements StaffService{
             currentAdmin.setCreateAd(adminDtos.getCreateAd());
             currentAdmin.setUpdateAd(adminDtos.getUpdateAd());
             currentAdmin.setStatus(adminDtos.getStatus());
-            AdminDto adminResponse = adminService.saveAdmin(currentAdmin);
+            AdminDtos adminResponse = adminService.saveAdmin(currentAdmin);
 
            StaffAdmin currentStaffResponse = new StaffAdmin();
             currentStaffResponse.setGeographicalLocation(geoResponse);
@@ -435,5 +435,12 @@ public class StaffServiceImpl implements StaffService{
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Staff getStaffByIdEntity(Long idStaff){
+        return staffRepository.findById(idStaff)
+                .orElseThrow(() -> new RuntimeException("Personal no encontrado por el id: " + idStaff));
     }
 }

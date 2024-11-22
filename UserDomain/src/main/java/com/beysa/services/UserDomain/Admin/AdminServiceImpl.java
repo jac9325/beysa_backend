@@ -1,25 +1,28 @@
 package com.beysa.services.UserDomain.Admin;
 
-import com.beysa.services.UserDomain.Admin.DTO.AdminDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
+
 @Service
-@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService{
     @Autowired
     AdminRepository adminRepository;
 
     private final AdminUtils adminUtils;
 
+    public AdminServiceImpl(AdminUtils adminUtils){
+        this.adminUtils = adminUtils;
+    }
+
     @Transactional
     @Override
-    public AdminDto saveAdmin(AdminEntity admin){
+    public AdminDtos saveAdmin(AdminEntity admin){
         try {
             AdminEntity currentAdmin = adminRepository.save(admin);
-            AdminDto response = adminUtils.convertAdminDto(currentAdmin);
+            AdminDtos response = adminUtils.convertAdminDtos(currentAdmin);
             return response;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -28,9 +31,9 @@ public class AdminServiceImpl implements AdminService{
 
     @Transactional(readOnly = true)
     @Override
-    public AdminDto getAdminById(Long idAdmin){
+    public AdminDtos getAdminById(Long idAdmin){
         return adminRepository.findById(idAdmin)
-                .map(adminUtils::convertAdminDto)
-                .orElseThrow(() -> new RuntimeException("Admin not found for id: " + idAdmin));
+                .map(adminUtils::convertAdminDtos)
+                .orElseThrow(() -> new RuntimeException("Administrador no encontrado por el id: " + idAdmin));
     }
 }

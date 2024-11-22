@@ -1,6 +1,6 @@
 package com.beysa.services.UserDomain.CashSession;
 
-import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDto;
+import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDtos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("api/v1/cashSession")
+@RequestMapping("api/v1/cash/session")
 public class CashSessionController {
     @Autowired
     private CashSessionService cashSessionService;
@@ -25,7 +25,7 @@ public class CashSessionController {
     @GetMapping("/getCashSessionById/{id}")
     public ResponseEntity<?> getCashSessionById(@PathVariable(value = "id") Long id){
         try{
-            CashSessionDto cashSession = cashSessionService.getCashSessionById(id);
+            CashSessionDtos cashSession = cashSessionService.getCashSessionById(id);
             return response.ok(codes.ok(), messages.ok(), cashSession, null);
         }catch (Exception e){
             return response.error(codes.error(), messages.error() + e.getMessage(), null);
@@ -35,7 +35,7 @@ public class CashSessionController {
     @GetMapping("/getCashSessionByIdCashRegister/{id}")
     public ResponseEntity<?> getCashSessionByIdCashRegister(@PathVariable(value = "id") Long id){
         try{
-            List<CashSessionDto> cashSession = cashSessionService.getCashSessionByIdCashRegister(id);
+            List<CashSessionDtos> cashSession = cashSessionService.getCashSessionByIdCashRegister(id);
             return response.ok(codes.ok(), messages.ok(), cashSession, null);
         }catch (Exception e){
             return response.error(codes.error(), messages.error() + e.getMessage(), null);

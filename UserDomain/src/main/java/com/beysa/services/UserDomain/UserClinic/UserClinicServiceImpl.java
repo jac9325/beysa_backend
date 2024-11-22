@@ -34,7 +34,7 @@ public class UserClinicServiceImpl implements UserClinicService {
     public UserClinicDto getUserClinicById(Long idUserClinic){
         return userClinicRepository.findById(idUserClinic)
                 .map(userClinicUtils::convertUserClinicDto)
-                .orElseThrow(() -> new RuntimeException("UserClinic not found for id: " + idUserClinic));
+                .orElseThrow(() -> new RuntimeException("Usuario-Clínica no encontrado por el id: " + idUserClinic));
     }
 
     @Transactional(readOnly = true)
@@ -42,7 +42,7 @@ public class UserClinicServiceImpl implements UserClinicService {
     public List<UserClinicDto> getUserClinicByIdClinic(Long idClinic){
         List<UserClinic> userClinic = userClinicRepository.findByIdClinic(idClinic);
         if (userClinic.isEmpty()) {
-            throw new RuntimeException("No userClinic records found in the database.");
+            throw new RuntimeException("No se encontraron registros de Usuario-Clínica en la base de datos.");
         }
         return userClinicUtils.convertListUserClinicDto(userClinic);
     }

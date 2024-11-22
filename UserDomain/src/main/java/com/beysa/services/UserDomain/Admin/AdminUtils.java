@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
-import com.beysa.services.UserDomain.Admin.DTO.AdminDto;
+
+import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
 
 @Component
 public class AdminUtils {
-    public AdminDto convertAdminDto(AdminEntity admin) {
-        AdminDto dto = new AdminDto();
+    public AdminDtos convertAdminDtos(AdminEntity admin) {
+        AdminDtos dto = new AdminDtos();
         dto.setIdAdmin(admin.getIdAdmin());
         dto.setIdStaff(admin.getStaff().getIdStaff());
         dto.setBranchManager(admin.getBranchManager());
@@ -21,9 +22,9 @@ public class AdminUtils {
         return dto;
     }
 
-    public List<AdminDto> toDtoListAdminDto(List<AdminEntity> adminList) {
+    public List<AdminDtos> convertListAdminDtos(List<AdminEntity> adminList) {
         return adminList.stream()
-                        .map(this::convertAdminDto)
+                        .map(this::convertAdminDtos)
                         .collect(Collectors.toList());
     }
 }

@@ -18,7 +18,7 @@ public class CountryServiceImpl implements CountryService{
     @Override
     public Country getCountryById(Long idCountry){
         return countryRepository.findById(idCountry)
-                .orElseThrow(() -> new RuntimeException("Country not found for id: " + idCountry));
+                .orElseThrow(() -> new RuntimeException("Pais no encontrado por el id: " + idCountry));
     }
 
     @Transactional(readOnly = true)
@@ -26,7 +26,7 @@ public class CountryServiceImpl implements CountryService{
     public List<Country> getAllCountry(){
         List<Country> countries = countryRepository.findAll();
         if (countries.isEmpty()) {
-            throw new RuntimeException("No countries found in the database.");
+            throw new RuntimeException("No se encontraron registros de Pais en la base de datos.");
         }
         return countries;
     }

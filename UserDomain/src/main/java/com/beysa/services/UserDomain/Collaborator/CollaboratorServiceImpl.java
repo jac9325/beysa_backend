@@ -34,7 +34,7 @@ public class CollaboratorServiceImpl implements CollaboratorService{
     public CollaboratorDto getCollaboratorById(Long idCollaborator){
         return collaboratorRepository.findById(idCollaborator)
                 .map(collaboratorUtils::convertCollaboratorDto)
-                .orElseThrow(() -> new RuntimeException("Collaborator not found for id: " + idCollaborator));
+                .orElseThrow(() -> new RuntimeException("Colaborador no encontrado por el id: " + idCollaborator));
     }
 
     @Transactional(readOnly = true)
@@ -42,7 +42,7 @@ public class CollaboratorServiceImpl implements CollaboratorService{
     public List<CollaboratorDto> getAllCollaborator(){
         List<Collaborator> listCollaborator = collaboratorRepository.findAll();
         if(listCollaborator.isEmpty()){
-            throw new RuntimeException("No Collaborator records found in the database");
+            throw new RuntimeException("No se encontraron registros de Colaborador en la base de datos.");
         }
         return collaboratorUtils.convertListCollaboratorDto(listCollaborator);
     }

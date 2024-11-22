@@ -22,14 +22,14 @@ public class DistrictServiceImpl implements DistrictService {
     public DistrictDto getDistrictById(Long idDistrict){
         return districtRepository.findById(idDistrict)
                 .map(districtUtils::convertDistrictDto)
-                .orElseThrow(() -> new RuntimeException("District not found for id: " + idDistrict));
+                .orElseThrow(() -> new RuntimeException("Distrito no encontrado por el id: " + idDistrict));
     }
 
     @Transactional(readOnly = true)
     @Override
     public District getDistrictByIdEntity(Long idDistrict){
         return districtRepository.findById(idDistrict)
-                .orElseThrow(() -> new RuntimeException("District not found for id: " + idDistrict));
+                .orElseThrow(() -> new RuntimeException("Distrito no encontrado por el id: " + idDistrict));
     }
 
     @Transactional(readOnly = true)
@@ -37,7 +37,7 @@ public class DistrictServiceImpl implements DistrictService {
     public List<DistrictDto> getAllDistrict(){
         List<District> listDistrict = districtRepository.findAll();
         if(listDistrict.isEmpty()){
-            throw new RuntimeException("No District records found in the database");
+            throw new RuntimeException("No se encontraron registros de Distrito en la base de datos.");
         }
         return districtUtils.convertListDistrictDto(listDistrict);
     }

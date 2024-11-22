@@ -1,23 +1,26 @@
 package com.beysa.services.UserDomain.CashClosing;
 
 import com.beysa.services.UserDomain.CashClosing.DTO.CashClosingDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class CashClosingServiceImpl implements CashClosingService{
     
     private final CashClosingRepository cashClosingRepository;
     private final CashClosingUtils cashClosingUtils;
+
+    public CashClosingServiceImpl(CashClosingRepository cashClosingRepository, CashClosingUtils cashClosingUtils){
+        this.cashClosingRepository = cashClosingRepository;
+        this.cashClosingUtils = cashClosingUtils;
+    }
 
     @Transactional(readOnly = true)
     @Override
     public CashClosingDto getCashClosingById(Long idCashClosing){
         return cashClosingRepository.findById(idCashClosing)
                 .map(cashClosingUtils::convertCashClosingDto)
-                .orElseThrow(() -> new RuntimeException("CashClosing not found for id: " + idCashClosing));
+                .orElseThrow(() -> new RuntimeException("CajaCierre no encontrado por el id: " + idCashClosing));
     }
 
     @Transactional(readOnly = true)
@@ -25,6 +28,6 @@ public class CashClosingServiceImpl implements CashClosingService{
     public CashClosingDto getCashClosingByIdCashSession(Long idCashSession){
         return cashClosingRepository.findByIdCashSession(idCashSession)
                 .map(cashClosingUtils::convertCashClosingDto)
-                .orElseThrow(() -> new RuntimeException("CashClosing not found for idCashSession: " + idCashSession));
+                .orElseThrow(() -> new RuntimeException("CajaCierre no encontrado por el id de CajaSesión: " + idCashSession));
     }
 }

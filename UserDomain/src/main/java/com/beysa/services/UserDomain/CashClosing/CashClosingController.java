@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("api/v1/cashClosing")
+@RequestMapping("api/v1/cash/closing")
 public class CashClosingController {
     @Autowired
     private CashClosingService cashClosingService;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("api/v1/clinicConfiguration")
+@RequestMapping("api/v1/clinic/configuration")
 public class ClinicConfigurationController {
     @Autowired
     private ClinicConfigurationService clinicConfigurationService;

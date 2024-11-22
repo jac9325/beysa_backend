@@ -1,6 +1,6 @@
 package com.beysa.services.UserDomain.Admin;
 
-import com.beysa.services.UserDomain.Admin.DTO.AdminDto;
+import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class AdminController {
     @GetMapping("/getAdminById/{id}")
     public ResponseEntity<?> getAdminById(@PathVariable(value = "id") Long id){
         try{
-            AdminDto admin = adminService.getAdminById(id);
+            AdminDtos admin = adminService.getAdminById(id);
             return response.ok(codes.ok(), messages.ok(), admin, null);
         }catch (Exception e){
             return response.error(codes.error(), messages.error() + e.getMessage(), null);

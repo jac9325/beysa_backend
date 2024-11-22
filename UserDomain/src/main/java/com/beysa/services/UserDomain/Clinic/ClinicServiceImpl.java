@@ -21,14 +21,14 @@ public class ClinicServiceImpl implements ClinicService{
     public ClinicDto getClinicById(Long idClinic){
         return clinicRepository.findById(idClinic)
                 .map(clinicUtils::convertClinicDto)
-                .orElseThrow(() -> new RuntimeException("Clinic not found for id: " + idClinic));
+                .orElseThrow(() -> new RuntimeException("Clínica no encontrado por el id: " + idClinic));
     }
 
     @Transactional(readOnly = true)
     @Override
     public Clinic getClinicByIdEntity(Long idClinic){
         return clinicRepository.findById(idClinic)
-                .orElseThrow(() -> new RuntimeException("Clinic not found for id: " + idClinic));
+                .orElseThrow(() -> new RuntimeException("Clínica no encontrado por el id: " + idClinic));
     }
 
     @Transactional

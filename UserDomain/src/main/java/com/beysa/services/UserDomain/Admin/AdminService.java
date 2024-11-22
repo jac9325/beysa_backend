@@ -1,8 +1,8 @@
 package com.beysa.services.UserDomain.Admin;
 
-import com.beysa.services.UserDomain.Admin.DTO.AdminDto;
+import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
 
 public interface AdminService {
-    AdminDto saveAdmin(AdminEntity admin);
-    AdminDto getAdminById(Long idAdmin);
+    AdminDtos saveAdmin(AdminEntity admin);
+    AdminDtos getAdminById(Long idAdmin);
 }

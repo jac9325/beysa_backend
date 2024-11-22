@@ -1,10 +1,10 @@
 package com.beysa.services.UserDomain.CashSession;
 
-import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDto;
+import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDtos;
 
 import java.util.List;
 
 public interface CashSessionService {
-    CashSessionDto getCashSessionById(Long idCashSession);
-    List<CashSessionDto> getCashSessionByIdCashRegister(Long idCashRegister);
+    CashSessionDtos getCashSessionById(Long idCashSession);
+    List<CashSessionDtos> getCashSessionByIdCashRegister(Long idCashRegister);
 }

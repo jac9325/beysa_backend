@@ -5,27 +5,27 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDto;
+import com.beysa.services.UserDomain.CashSession.DTO.CashSessionDtos;
 
 @Component
 public class CashSessionUtils {
-    public CashSessionDto convertCashSessionDto(CashSession entity) {
+    public CashSessionDtos convertCashSessionDtos(CashSession entity) {
         if (entity == null) return null;
-        CashSessionDto dto = new CashSessionDto();
+        CashSessionDtos dto = new CashSessionDtos();
         dto.setIdCashSession(entity.getIdCashSession());
         dto.setName(entity.getName());
         dto.setStartDate(entity.getStartDate());
         dto.setEndDate(entity.getEndDate());
         dto.setInitialAmount(entity.getInitialAmount());
-        dto.setIdcashRegister(entity.getCashRegister().getIdCashRegister());
+        dto.setIdCashRegister(entity.getCashRegister().getIdCashRegister());
         dto.setStatus(entity.getStatus());
         dto.setNotes(entity.getNotes());
         return dto;
     }
 
-    public List<CashSessionDto> convertListCashSessionDto(List<CashSession> entities) {
+    public List<CashSessionDtos> convertListCashSessionDtos(List<CashSession> entities) {
         return entities.stream()
-                       .map(this::convertCashSessionDto)
+                       .map(this::convertCashSessionDtos)
                        .collect(Collectors.toList());
     }
 }

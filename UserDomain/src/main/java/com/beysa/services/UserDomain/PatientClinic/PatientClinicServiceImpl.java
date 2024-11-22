@@ -18,7 +18,7 @@ public class PatientClinicServiceImpl implements PatientClinicService{
     public PatientClinicDto getPatientClinicById(Long idPatientClinic){
         return patientClinicRepository.findById(idPatientClinic)
                 .map(patientClinicUtils::convertPatientClinicDto)
-                .orElseThrow(() -> new RuntimeException("PatientClinic not found for id: " + idPatientClinic));
+                .orElseThrow(() -> new RuntimeException("Paciente-Clínica no encontrado por el id: " + idPatientClinic));
     }
 
     @Transactional(readOnly = true)
@@ -26,7 +26,7 @@ public class PatientClinicServiceImpl implements PatientClinicService{
     public List<PatientClinicDto> getPatientClinicByIdClinic(Long idClinic){
         List<PatientClinic> patientClinic = patientClinicRepository.findByIdClinic(idClinic);
         if (patientClinic.isEmpty()) {
-            throw new RuntimeException("No patientClinic records found in the database.");
+            throw new RuntimeException("No se encontraron registros de Paciente-Clínica en la base de datos.");
         }
         return patientClinicUtils.convertListPatientClinicDto(patientClinic);
     }

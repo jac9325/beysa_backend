@@ -18,7 +18,7 @@ public class GeographicalLocationServiceImpl implements GeographicalLocationServ
     public GeographicalLocationDto getGeographicalLocationById(Long idGeographicalLocation){
         return geographicalLocationRepository.findById(idGeographicalLocation)
                 .map(geographicalLocationUtils::convertGeographicalLocationDto)
-                .orElseThrow(() -> new RuntimeException("GeographicalLocation not found for id: " + idGeographicalLocation));
+                .orElseThrow(() -> new RuntimeException("Ubicación geográfica no encontrado por el id: " + idGeographicalLocation));
     }
 
     @Transactional

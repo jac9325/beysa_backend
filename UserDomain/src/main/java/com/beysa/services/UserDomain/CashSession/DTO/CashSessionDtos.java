@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CashSessionDto {
+public class CashSessionDtos {
     private Long idCashSession;
     private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private BigDecimal initialAmount;
-    private Long idcashRegister; 
+    private Long idCashRegister;
     private String notes;
     private Integer status;
 }
