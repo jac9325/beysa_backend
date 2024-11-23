@@ -18,7 +18,7 @@ public class CashSessionServiceImpl implements CashSessionService{
     public CashSessionDtos getCashSessionById(Long idCashSession){
         return cashSessionRepository.findById(idCashSession)
                 .map(cashSessionUtils::convertCashSessionDtos)
-                .orElseThrow(() -> new RuntimeException("CajaSesión no encontrado por el id: " + idCashSession));
+                .orElseThrow(() -> new RuntimeException(" CajaSesión no encontrado por el id: " + idCashSession));
     }
 
     @Transactional(readOnly = true)
@@ -26,7 +26,7 @@ public class CashSessionServiceImpl implements CashSessionService{
     public List<CashSessionDtos> getCashSessionByIdCashRegister(Long idCashRegister){
         List<CashSession> cashSession = cashSessionRepository.findByIdCashRegister(idCashRegister);
         if (cashSession.isEmpty()) {
-            throw new RuntimeException("No se encontraron registros de CajaSesión en la base de datos.");
+            throw new RuntimeException(" No se encontraron registros de CajaSesión en la base de datos.");
         }
         return cashSessionUtils.convertListCashSessionDtos(cashSession);
     }
