@@ -31,13 +31,13 @@ public class IncomeController {
         }
     }
 
-    // @GetMapping("/getIncomeByIdCashSession/{id}")
-    // public ResponseEntity<?> getIncomeByIdCashSession(@PathVariable(value = "id") Long id){
-    //     try{
-    //         List<IncomeDto> income = incomeService.getIncomeByIdCashSession(id);
-    //         return response.ok(codes.ok(), messages.ok(), income, null);
-    //     }catch (Exception e){
-    //         return response.error(codes.error(), messages.error() + e.getMessage(), null);
-    //     }
-    // }
+    @GetMapping("/getIncomeByIdCashSession/{id}")
+    public ResponseEntity<?> getIncomeByIdCashSession(@PathVariable(value = "id") Long id){
+        try{
+            List<IncomeDto> income = incomeService.getIncomeByIdCashSession(id);
+            return response.ok(codes.ok(), messages.ok(), income, null);
+        }catch (Exception e){
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 }

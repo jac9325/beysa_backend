@@ -22,14 +22,14 @@ public class ProvinceServiceImpl implements ProvinceService{
     public ProvinceDto getProvinceById(Long idProvince){
         return provinceRepository.findById(idProvince)
                 .map(provinceUtils::convertProvinceDto)
-                .orElseThrow(() -> new RuntimeException("Province not found for id: " + idProvince));
+                .orElseThrow(() -> new RuntimeException("Provincia no encontrado por el id: " + idProvince));
     }
 
     @Transactional(readOnly = true)
     @Override
     public Province getProvinceByIdEntity(Long idProvince){
         return provinceRepository.findById(idProvince)
-                .orElseThrow(() -> new RuntimeException("Province not found for id: " + idProvince));
+                .orElseThrow(() -> new RuntimeException("Provincia no encontrado por el id: " + idProvince));
     }
 
     @Transactional(readOnly = true)
@@ -37,7 +37,7 @@ public class ProvinceServiceImpl implements ProvinceService{
     public List<ProvinceDto> getAllProvince(){
         List<Province> listProvince = provinceRepository.findAll();
         if(listProvince.isEmpty()){
-            throw new RuntimeException("No Province records found in the database");
+            throw new RuntimeException("No se encontraron registros de Provincia en la base de datos.");
         }
         return provinceUtils.convertListProvinceDto(listProvince);
     }

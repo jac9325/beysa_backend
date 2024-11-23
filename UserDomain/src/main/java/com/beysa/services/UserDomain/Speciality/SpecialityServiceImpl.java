@@ -2,6 +2,7 @@ package com.beysa.services.UserDomain.Speciality;
 
 import java.util.List;
 
+import com.beysa.services.UserDomain.Staff.Staff;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,5 +51,12 @@ public class SpecialityServiceImpl implements SpecialityService{
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Speciality getSpecialityByIdEntity(Long idSpeciality){
+        return specialityRepository.findById(idSpeciality)
+                .orElseThrow(() -> new RuntimeException("Especialidad no encontrado por el id: " + idSpeciality));
     }
 }

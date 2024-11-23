@@ -6,5 +6,5 @@ import com.beysa.services.UserDomain.Clinic.DTO.ClinicDto;
 public interface ClinicService {
     ClinicDto getClinicById(Long idClinic);
     Clinic getClinicByIdEntity(Long idClinic);
-    // ClinicAndConfigurationDto getClinicAndConfigurationById(Long idClinic);
+    ClinicAndConfigurationDto getClinicAndConfigurationById(Long idClinic);
 }

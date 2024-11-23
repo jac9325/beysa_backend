@@ -8,4 +8,5 @@ public interface StaffService {
     StaffMedic registerNewMedic(StaffMedic staffMedic);
     StaffCollaborator registerNewCollaborator(StaffCollaborator staffCollaborator);
     StaffAdmin registerNewAdmin(StaffAdmin staffAdmin);
+    Staff getStaffByIdEntity(Long idStaff);
 }

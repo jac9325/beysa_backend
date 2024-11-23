@@ -20,14 +20,14 @@ public class ClinicConfigurationServiceImpl implements ClinicConfigurationServic
     public ClinicConfigurationDto getClinicConfigurationById(Long idClinicConfiguration){
         return clinicConfigurationRepository.findById(idClinicConfiguration)
                 .map(clinicConfigurationUtils::convertClinicConfigurationDto)
-                .orElseThrow(() -> new RuntimeException("ClinicConfiguration not found for id: " + idClinicConfiguration));
+                .orElseThrow(() -> new RuntimeException("Configuración de Clínica no encontrado por el id: " + idClinicConfiguration));
     }
 
-    // @Transactional(readOnly = true)
-    // @Override
-    // public ClinicConfigurationDto getClinicConfigurationByIdClinic(Long idClinic){
-    //     return clinicConfigurationRepository.findByClinic(idClinic)
-    //             .map(clinicConfigurationUtils::convertClinicConfigurationDto)
-    //             .orElseThrow(() -> new RuntimeException("ClinicConfiguration not found for idClinic: " + idClinic));
-    // }
+    @Transactional(readOnly = true)
+    @Override
+    public ClinicConfigurationDto getClinicConfigurationByIdClinic(Long idClinic){
+        return clinicConfigurationRepository.findByIdClinic(idClinic)
+                .map(clinicConfigurationUtils::convertClinicConfigurationDto)
+                .orElseThrow(() -> new RuntimeException("Configuración de Clínica no encontrado por el id clínica: " + idClinic));
+    }
 }

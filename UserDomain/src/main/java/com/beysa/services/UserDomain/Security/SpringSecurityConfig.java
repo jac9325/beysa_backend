@@ -39,7 +39,7 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests((authz) -> authz
         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
@@ -50,11 +50,21 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/usuario/enviarCorreoPassword/{correo}").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/v1/usuario/confirmarCorreo/{token}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/usuario/createUser").permitAll()
-                
+
                 .anyRequest()
                 .authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))
+                .csrf(config -> config.disable())
+                .cors(cors->cors.configurationSource(corsConfigurationSource()))
+                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
+    }*/
+
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests((authz) -> authz
+                        .anyRequest().permitAll())
                 .csrf(config -> config.disable())
                 .cors(cors->cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
