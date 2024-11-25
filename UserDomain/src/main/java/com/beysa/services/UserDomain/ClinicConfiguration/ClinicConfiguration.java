@@ -38,4 +38,7 @@ public class ClinicConfiguration {
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "time_zone")
+    private String time_zone;
 }

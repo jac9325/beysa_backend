@@ -1,9 +1,15 @@
 package com.beysa.services.UserDomain.Admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
+import com.beysa.services.UserDomain.Medic.DTO.MedicDto;
 import com.beysa.services.UserDomain.Middlewares.Codes;
 import com.beysa.services.UserDomain.Middlewares.Messages;
 import com.beysa.services.UserDomain.Middlewares.ResponseUtils;
@@ -12,9 +18,20 @@ import com.beysa.services.UserDomain.Middlewares.ResponseUtils;
 @RestController
 @RequestMapping("api/v1/staff")
 public class AdminController {
+    @Autowired
+    private AdminService adminService;
 
     Codes codes = new Codes();
     Messages messages = new Messages();
     ResponseUtils response = new ResponseUtils();
 
+    @PutMapping("/update/medic")
+    public ResponseEntity<?> updateMedic(@RequestBody AdminDtos newAdmin){
+        try {
+            Boolean resp = adminService.updateAdmin(newAdmin);
+            return response.ok(codes.ok(),messages.ok(), resp, null);
+        }catch(Exception e){
+            return response.error(codes.error(),messages.error() + e.getMessage(), null);
+        }
+    }
 }

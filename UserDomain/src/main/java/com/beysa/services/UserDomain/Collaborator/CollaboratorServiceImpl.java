@@ -4,6 +4,7 @@ import com.beysa.services.UserDomain.Collaborator.DTO.CollaboratorDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,5 +46,24 @@ public class CollaboratorServiceImpl implements CollaboratorService{
             throw new RuntimeException("No Collaborator records found in the database");
         }
         return collaboratorUtils.convertListCollaboratorDto(listCollaborator);
+    }
+
+    @Transactional
+    @Override
+    public Boolean updateColaborator(CollaboratorDto newCollaborator){  
+        try {
+            Collaborator oldCollaborator = collaboratorRepository.findById(newCollaborator.getIdCollaborator()).orElse(null);
+            if (oldCollaborator == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Colaborador");
+            }
+
+            oldCollaborator.setLevelEducation(newCollaborator.getLevelEducation());
+            oldCollaborator.setStudyQualification(newCollaborator.getStudyQualification());
+            oldCollaborator.setUpdateAd(LocalDateTime.now());
+            collaboratorRepository.save(oldCollaborator);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 }

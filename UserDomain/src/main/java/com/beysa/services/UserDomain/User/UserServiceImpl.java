@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
                 throw new RuntimeException("Ha ocurrido un error al obtener los roles");
             }
             currentUser = createUsuario(currentUser);
-            if (currentUser.getId_user()<=0) {
+            if (currentUser.getIdUser()<=0) {
                 return null;
             }
             for (Rol rol : currentRols) {               
@@ -77,6 +77,30 @@ public class UserServiceImpl implements UserService{
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+   }
+
+   @Transactional
+   @Override
+   public Boolean changePasswordStaff(UserEntity newUser){
+    try {
+        Boolean res = false;
+        if (newUser == null){
+            throw new RuntimeException("El usuario enviado esta vacío");
+        }
+        if (newUser.getTypeUser() == UserEnum.TYPE_STAFF){
+            UserEntity oldUserEntity = userRepository.findById(newUser.getIdUser()).orElse(newUser);
+            if (oldUserEntity == null){
+                throw new RuntimeException("Error al obtener el Usuario");
+            }
+            String passwordEncode = UsuarioSecurityConfig.encode(newUser.getPassword());
+            oldUserEntity.setPassword(passwordEncode);
+            userRepository.save(oldUserEntity);
+            res = true;
+        }
+        return res;
+    } catch (Exception e) {
+        throw new RuntimeException(e.getMessage());
+    }
    }
    
 }

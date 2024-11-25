@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,9 @@ import com.beysa.services.UserDomain.Middlewares.Messages;
 import com.beysa.services.UserDomain.Middlewares.ResponseUtils;
 import com.beysa.services.UserDomain.Staff.DTO.StaffAdmin;
 import com.beysa.services.UserDomain.Staff.DTO.StaffCollaborator;
+import com.beysa.services.UserDomain.Staff.DTO.StaffDto;
 import com.beysa.services.UserDomain.Staff.DTO.StaffMedic;
+import com.beysa.services.UserDomain.Staff.DTO.StaffWithUbication;
 
 
 @CrossOrigin(origins = "*")
@@ -62,6 +65,19 @@ public class StaffController {
                 return response.error(codes.error(), messages.error(), null);
             }
             return response.success(codes.created(), messages.created(), result, null);
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
+
+    @PutMapping("/update/staff")
+    public ResponseEntity<?> createStaffAdmin(@RequestBody StaffWithUbication newStaff) {
+        try {
+            Boolean result = staffService.updateStaff(newStaff.getStaff(), newStaff.getUbication());
+            if (result == null) {
+                return response.error(codes.error(), messages.error(), null);
+            }
+            return response.ok(codes.ok(), messages.ok(), result, null);
         } catch (Exception e) {
             return response.error(codes.error(), messages.error() + e.getMessage(), null);
         }

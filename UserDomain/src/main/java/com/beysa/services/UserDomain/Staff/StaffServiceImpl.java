@@ -162,7 +162,7 @@ public class StaffServiceImpl implements StaffService{
             Rol currentRol = rolService.getRolByName(rolName);
             currentRols.add(currentRol);
             currentUser = userService.createUserAll(currentUser, currentRols, currentClinic);
-            if (currentUser.getId_user() <= 0){
+            if (currentUser.getIdUser() <= 0){
                 throw new RuntimeException("Ha ocurrido un error al guardar el Usuario");
             }
 
@@ -287,7 +287,7 @@ public class StaffServiceImpl implements StaffService{
             Rol currentRol = rolService.getRolByName(rolName);
             currentRols.add(currentRol);
             currentUser = userService.createUserAll(currentUser, currentRols, currentClinic);
-            if (currentUser.getId_user() <= 0){
+            if (currentUser.getIdUser() <= 0){
                 throw new RuntimeException("Ha ocurrido un error al guardar el Usuario");
             }
 
@@ -407,7 +407,7 @@ public class StaffServiceImpl implements StaffService{
             Rol currentRol = rolService.getRolByName(rolName);
             currentRols.add(currentRol);
             currentUser = userService.createUserAll(currentUser, currentRols, currentClinic);
-            if (currentUser.getId_user() <= 0){
+            if (currentUser.getIdUser() <= 0){
                 throw new RuntimeException("Ha ocurrido un error al guardar el Usuario");
             }
 
@@ -471,6 +471,67 @@ public class StaffServiceImpl implements StaffService{
             currentStaffResponse.setAdmin(adminResponse);
             currentStaffResponse.setStaff(staffdtoResponse);
             return currentStaffResponse;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional
+    @Override
+    public Boolean updateStaff(StaffDto newStaff, GeographicalLocationDto newGeographicalLocation){
+        try {
+            if (newStaff == null){
+                throw new RuntimeException("Ha ocurrido un error al actualizar el Personal");
+            }
+            GeographicalLocation oldGeographicalLocation = geographicalLocationService.getGeographicalLocationByIdEntity(newGeographicalLocation.getIdGeographicalLocation());
+            if (oldGeographicalLocation == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener la Ubicación Geográfica");
+            }
+            Country currentCountry = countryService.getCountryById(newGeographicalLocation.getIdCountry());
+            if (currentCountry == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el País");
+            }
+            Department currentDepartment = departmentService.getDepartmentById(newGeographicalLocation.getIdDepartment());
+            if (currentDepartment == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Departamento");
+            }
+            Province currentProvince = provinceService.getProvinceByIdEntity(newGeographicalLocation.getIdProvince());
+            if (currentProvince == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener la Provincia");
+            }
+            District currentDistrict = districtService.getDistrictByIdEntity(newGeographicalLocation.getIdDistrict());
+            if (currentDistrict == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Distrito");
+            }
+            oldGeographicalLocation.setCountry(currentCountry);
+            oldGeographicalLocation.setDepartment(currentDepartment);
+            oldGeographicalLocation.setProvince(currentProvince);
+            oldGeographicalLocation.setDistrict(currentDistrict);
+            geographicalLocationService.saveGeoGraphical(oldGeographicalLocation);
+            /**Handle Staff */
+            Staff oldStaff = staffRepository.findById(newStaff.getIdStaff()).orElse(null);
+            if (oldStaff == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Personal");
+            }
+            IdentityDocument currentDocument = identityDocumentService.getIdentityDocumentById(newStaff.getIdIdentityDocument());
+            if (currentDocument == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Documento de Identidad");
+            }
+            oldStaff.setName(newStaff.getName());
+            oldStaff.setLastName(newStaff.getLastName());
+            oldStaff.setDateOfBirth(newStaff.getDateOfBirth());
+            oldStaff.setGender(newStaff.getGender());
+            oldStaff.setIdentityDocument(currentDocument);
+            oldStaff.setMobileNumber(newStaff.getMobileNumber());
+            oldStaff.setEmail(newStaff.getEmail());
+            oldStaff.setAddress(newStaff.getAddress());
+            oldStaff.setDateEntry(newStaff.getDateEntry());
+            oldStaff.setGeographicalLocation(oldGeographicalLocation);
+            oldStaff.setSalary(newStaff.getSalary());
+            oldStaff.setContractType(newStaff.getContractType());
+            staffRepository.save(oldStaff);
+            return true;
+
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

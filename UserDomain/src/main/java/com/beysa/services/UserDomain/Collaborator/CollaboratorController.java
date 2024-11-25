@@ -41,4 +41,14 @@ public class CollaboratorController {
             return response.error(codes.error(), messages.error() + e.getMessage(), null);
         }
     }
+
+    @PutMapping("/update/collaborator")
+    public ResponseEntity<?> getAllCollaborator(@RequestBody CollaboratorDto newCollaborator){
+        try{
+            Boolean resp = collaboratorService.updateColaborator(newCollaborator);
+            return response.ok(codes.ok(), messages.ok(), resp, null);
+        }catch (Exception e){
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 }

@@ -35,4 +35,12 @@ public class GeographicalLocationServiceImpl implements GeographicalLocationServ
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public GeographicalLocation getGeographicalLocationByIdEntity(Long idGeographicalLocation){
+        return geographicalLocationRepository.findById(idGeographicalLocation)
+                .orElseThrow(() -> new RuntimeException("GeographicalLocation not found for id: " + idGeographicalLocation));
+    }
+
 }

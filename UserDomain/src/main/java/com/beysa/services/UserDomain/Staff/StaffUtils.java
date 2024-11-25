@@ -29,7 +29,7 @@ public class StaffUtils {
         dto.setContractType(staff.getContractType());
         dto.setStatus(staff.getStatus());
         dto.setTypeStaff(staff.getTypeStaff());
-        dto.setIdUser(staff.getUser().getId_user());
+        dto.setIdUser(staff.getUser().getIdUser());
         return dto;
     }
 

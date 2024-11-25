@@ -5,4 +5,5 @@ import com.beysa.services.UserDomain.GeographicalLocation.DTO.GeographicalLocati
 public interface GeographicalLocationService {
     GeographicalLocationDto getGeographicalLocationById(Long idGeographicalLocation);
     GeographicalLocationDto saveGeoGraphical(GeographicalLocation geo);
+    GeographicalLocation getGeographicalLocationByIdEntity(Long idGeographicalLocation);
 }

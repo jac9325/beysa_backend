@@ -27,7 +27,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user")
-    private Long id_user;
+    private Long idUser;
 
     @NotBlank
     @Column(name = "username", nullable = false, unique = true)
@@ -41,10 +41,10 @@ public class UserEntity {
     private String password;
 
     @Column(name = "is_main")
-    private Integer is_main;
+    private Integer isMain;
 
     @Column(name = "type_user")
-    private UserEnum type_user;
+    private UserEnum typeUser;
 
     @Column(name = "email")
     private String email;

@@ -8,4 +8,5 @@ import com.beysa.services.UserDomain.Rol.Rol;
 public interface UserService {
     UserEntity createUserAll(UserEntity currentUser, List<Rol> currentRols, Clinic clinic);
     UserEntity createUsuario(UserEntity request);
+    Boolean changePasswordStaff(UserEntity newUser);
 }

@@ -15,12 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/medic")
 public class MedicController {
-    // @Autowired
-    // private MedicService medicService;
+    @Autowired
+    private MedicService medicService;
 
-    // Codes codes = new Codes();
-    // Messages messages = new Messages();
-    // ResponseUtils response = new ResponseUtils();
+    Codes codes = new Codes();
+    Messages messages = new Messages();
+    ResponseUtils response = new ResponseUtils();
 
     // @GetMapping("/getMedicById/{id}")
     // public ResponseEntity<?> getMedicById(@PathVariable(value = "id") Long id){
@@ -42,15 +42,15 @@ public class MedicController {
     //     }
     // }
 
-    // @PostMapping("/createMedic")
-    // public ResponseEntity<?> createMedic(@RequestBody MedicDto Request){
-    //     try {
-    //         MedicDto medic =medicService.createMedic(Request);
-    //         return response.success(codes.created(),messages.created(), medic, null);
-    //     }catch(Exception e){
-    //         return response.error(codes.error(),messages.error() + e.getMessage(), null);
-    //     }
-    // }
+    @PutMapping("/update/medic")
+    public ResponseEntity<?> updateMedic(@RequestBody MedicDto newMedic){
+        try {
+            Boolean medic = medicService.updateMedic(newMedic);
+            return response.ok(codes.ok(),messages.ok(), medic, null);
+        }catch(Exception e){
+            return response.error(codes.error(),messages.error() + e.getMessage(), null);
+        }
+    }
 
     // @DeleteMapping("/deleteMedic/{id}")
     // public ResponseEntity<?> deleteMedic(@PathVariable(value = "id") Long id) {
