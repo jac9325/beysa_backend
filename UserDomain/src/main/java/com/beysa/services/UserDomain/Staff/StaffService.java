@@ -11,4 +11,5 @@ public interface StaffService {
     StaffCollaborator registerNewCollaborator(StaffCollaborator staffCollaborator);
     StaffAdmin registerNewAdmin(StaffAdmin staffAdmin);
     Boolean updateStaff(StaffDto newStaff, GeographicalLocationDto newGeographicalLocation);
+    Staff getStaffByIdEntity(Long idStaff);
 }

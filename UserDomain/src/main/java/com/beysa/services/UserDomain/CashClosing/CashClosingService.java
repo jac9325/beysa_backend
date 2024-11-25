@@ -4,5 +4,5 @@ import com.beysa.services.UserDomain.CashClosing.DTO.CashClosingDto;
 
 public interface CashClosingService {
     CashClosingDto getCashClosingById(Long idCashClosing);
-    //CashClosingDto getCashClosingByIdCashSession(Long idCashSession);
+    CashClosingDto getCashClosingByIdCashSession(Long idCashSession);
 }

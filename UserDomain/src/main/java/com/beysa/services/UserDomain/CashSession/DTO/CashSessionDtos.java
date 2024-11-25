@@ -16,7 +16,7 @@ public class CashSessionDtos {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private BigDecimal initialAmount;
-    private Long idcashRegister; 
+    private Long idCashRegister;
     private String notes;
     private Integer status;
 }

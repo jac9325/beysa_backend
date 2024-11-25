@@ -20,14 +20,14 @@ public class CashClosingServiceImpl implements CashClosingService{
     public CashClosingDto getCashClosingById(Long idCashClosing){
         return cashClosingRepository.findById(idCashClosing)
                 .map(cashClosingUtils::convertCashClosingDto)
-                .orElseThrow(() -> new RuntimeException("CashClosing not found for id: " + idCashClosing));
+                .orElseThrow(() -> new RuntimeException("CajaCierre no encontrado por el id: " + idCashClosing));
     }
 
-    // @Transactional(readOnly = true)
-    // @Override
-    // public CashClosingDto getCashClosingByIdCashSession(Long idCashSession){
-    //     return cashClosingRepository.findByIdCashSession(idCashSession)
-    //             .map(cashClosingUtils::convertCashClosingDto)
-    //             .orElseThrow(() -> new RuntimeException("CashClosing not found for idCashSession: " + idCashSession));
-    // }
+    @Transactional(readOnly = true)
+    @Override
+    public CashClosingDto getCashClosingByIdCashSession(Long idCashSession){
+        return cashClosingRepository.findByIdCashSession(idCashSession)
+                .map(cashClosingUtils::convertCashClosingDto)
+                .orElseThrow(() -> new RuntimeException("CajaCierre no encontrado por el id de CajaSesión: " + idCashSession));
+    }
 }

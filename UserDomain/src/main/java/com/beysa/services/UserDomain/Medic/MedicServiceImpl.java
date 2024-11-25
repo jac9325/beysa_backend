@@ -11,10 +11,10 @@ import com.beysa.services.UserDomain.Medic.DTO.MedicDto;
 import com.beysa.services.UserDomain.Speciality.Speciality;
 import com.beysa.services.UserDomain.Speciality.SpecialityService;
 
+import java.util.List;
+
 @Service
 public class MedicServiceImpl implements MedicService{
-
-
 
     private final MedicRepository medicRepository;
     private final MedicUtils medicUtils;
@@ -72,48 +72,47 @@ public class MedicServiceImpl implements MedicService{
         }
     }
 
-    // @Transactional(readOnly = true)
-    // @Override
-    // public MedicDto getMedicById(Long idMedic){
-    //     return medicRepository.findById(idMedic)
-    //             .map(medicUtils::convertMedicDto)
-    //             .orElseThrow(() -> new RuntimeException("Medic not found for id: " + idMedic));
-    // }
+    @Transactional(readOnly = true)
+    @Override
+    public MedicDto getMedicById(Long idMedic){
+        return medicRepository.findById(idMedic)
+                .map(medicUtils::convertMedicDto)
+                .orElseThrow(() -> new RuntimeException("Medico no encontrado por el id: " + idMedic));
+    }
 
-    // @Transactional(readOnly = true)
-    // @Override
-    // public List<MedicDto> getAllMedic(){
-    //     List<Medic> listMedic = medicRepository.findAll();
-    //     if(listMedic.isEmpty()){
-    //         throw new RuntimeException("No Medic records found in the database");
-    //     }
-    //     return medicUtils.convertListMedicDto(listMedic);
-    // }
+    @Transactional(readOnly = true)
+    @Override
+    public List<MedicDto> getAllMedic(){
+        List<Medic> listMedic = medicRepository.findAll();
+        if(listMedic.isEmpty()){
+            throw new RuntimeException("No se encontraron registros de Medico en la base de datos.");
+        }
+        return medicUtils.convertListMedicDto(listMedic);
+    }
 
-    // @Transactional
-    // @Override
-    // public MedicDto createMedic(MedicDto request){
-    //     if(request == null) throw new RuntimeException("MedicDto is null");
-    //     try {
-    //         Medic medic = medicUtils.convertMedicEntity(request);
-    //         medicRepository.save(medic);
-    //         return medicUtils.convertMedicDto(medic);
-    //     }catch (Exception e){ throw new RuntimeException("Error during create operation: " + e.getMessage(), e);}
+    /*@Transactional
+    @Override
+    public MedicDto createMedic(MedicDto request){
+        if(request == null) throw new RuntimeException("Medico es nulo");
+        try {
+            Medic medic = convertMedicEntity(request);
+            medicRepository.save(medic);
+            return medicUtils.convertMedicDto(medic);
+        }catch (Exception e){ throw new RuntimeException("Error durante la operación de crear: " + e.getMessage(), e);}
+    }*/
 
-    // }
-
-    // @Transactional
-    // @Override
-    // public Boolean deleteMedic(Long idMedic){
-    //     return medicRepository.findById(idMedic)
-    //             .map(medic -> {
-    //                 try {
-    //                     medicRepository.delete(medic);
-    //                     return true;
-    //                 } catch (Exception e) {throw new RuntimeException("Error during delete operation: " + e.getMessage(), e);}
-    //             })
-    //             .orElseThrow(() -> new RuntimeException("Personal not found for id: " + idMedic));
-    // }
+    @Transactional
+    @Override
+    public Boolean deleteMedic(Long idMedic){
+        return medicRepository.findById(idMedic)
+                .map(medic -> {
+                    try {
+                        medicRepository.delete(medic);
+                        return true;
+                    } catch (Exception e) {throw new RuntimeException("Error durante la operación de eliminar: " + e.getMessage(), e);}
+                })
+                .orElseThrow(() -> new RuntimeException("Medico no encontrado por el id: " + idMedic));
+    }
 
     // @Transactional
     // @Override
@@ -134,19 +133,17 @@ public class MedicServiceImpl implements MedicService{
     //             .orElseThrow(() -> new RuntimeException("Medic not found for id: " + idMedic));
     // }
 
-    // public Medic convertMedicEntity(MedicDto medic){
-    //     Medic response = new Medic();
-    //     response.setIdMedic(medic.getIdMedic());
-    //     Staff staff = staffRepository.findById(medic.getIdMedic())
-    //             .orElseThrow(() -> new RuntimeException("Staff not found for id: " + medic.getIdStaff()));
-    //     response.setStaff(staff);
-    //     Speciality speciality = specialityRepository.findById(medic.getIdSpeciality())
-    //             .orElseThrow(() -> new RuntimeException("Speciality not found for id: " + medic.getIdSpeciality()));
-    //     response.setSpeciality(speciality);
-    //     response.setProfessionalLicenseNumber(medic.getProfessionalLicenseNumber());
-    //     response.setCreateAd(medic.getCreateAd());
-    //     response.setUpdateAd(medic.getUpdateAd());
-    //     response.setStatus(medic.getStatus());
-    //     return response;
-    // }
+    /*public Medic convertMedicEntity(MedicDto medic){
+        Medic response = new Medic();
+        response.setIdMedic(medic.getIdMedic());
+        Staff staff = staffService.getStaffByIdEntity(medic.getIdStaff());
+        response.setStaff(staff);
+        Speciality speciality = specialityService.getSpecialityByIdEntity(medic.getIdSpeciality());
+        response.setSpeciality(speciality);
+        response.setProfessionalLicenseNumber(medic.getProfessionalLicenseNumber());
+        response.setCreateAd(medic.getCreateAd());
+        response.setUpdateAd(medic.getUpdateAd());
+        response.setStatus(medic.getStatus());
+        return response;
+    }*/
 }

@@ -21,7 +21,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     public Department getDepartmentById(Long idDepartment){
         return departmentRepository.findById(idDepartment)
-                .orElseThrow(() -> new RuntimeException("Department not found for id: " + idDepartment));
+                .orElseThrow(() -> new RuntimeException("Departamento no encontrado por el id: " + idDepartment));
     }
 
     @Transactional(readOnly = true)
@@ -29,7 +29,7 @@ public class DepartmentServiceImpl implements DepartmentService{
     public List<DepartmentDto> getAllDepartment(){
         List<Department> listDepartment = departmentRepository.findAll();
         if(listDepartment.isEmpty()){
-            throw new RuntimeException("No Department records found in the database");
+            throw new RuntimeException("No se encontraron registros de Departamento en la base de datos.");
         }
         return departmentUtils.convertListDepartmentDto(listDepartment);
     }

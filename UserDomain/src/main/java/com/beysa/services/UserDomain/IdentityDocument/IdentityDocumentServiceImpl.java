@@ -1,29 +1,40 @@
 package com.beysa.services.UserDomain.IdentityDocument;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class IdentityDocumentServiceImpl implements IdentityDocumentService{
-    @Autowired
-    private IdentityDocumentRepository identityDocumentRepository;
+    private final IdentityDocumentRepository identityDocumentRepository;
 
     @Override
-    public IdentityDocument createIdentityDocument(IdentityDocument identityDocument) {
-        return identityDocumentRepository.save(identityDocument);
+    public IdentityDocument createIdentityDocument(IdentityDocument request) {
+        if(request == null) throw new RuntimeException("Documento de identidad es nulo");
+        try {
+            return identityDocumentRepository.save(request);
+        }catch (Exception e){ throw new RuntimeException("Error durante la operación de crear: " + e.getMessage(), e);}
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public IdentityDocument getIdentityDocumentById(Long id) {
-        return identityDocumentRepository.findById(id).orElse(null);
+    public IdentityDocument getIdentityDocumentById(Long idIdentityDocument) {
+        return identityDocumentRepository.findById(idIdentityDocument)
+                .orElseThrow(() -> new RuntimeException("Documento de identidad no encontrado por el id: " + idIdentityDocument));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<IdentityDocument> getAllIdentityDocuments() {
-        return identityDocumentRepository.findAll();
+        List<IdentityDocument> listIdentityDocument = identityDocumentRepository.findAll();
+        if(listIdentityDocument.isEmpty()){
+            throw new RuntimeException("No se encontraron registros de Documento de identidad en la base de datos.");
+        }
+        return listIdentityDocument;
     }
 }

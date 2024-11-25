@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService{
     public AdminDtos saveAdmin(AdminEntity admin){
         try {
             AdminEntity currentAdmin = adminRepository.save(admin);
-            AdminDtos response = adminUtils.converAdminDtos(currentAdmin);
+            AdminDtos response = adminUtils.convertAdminDtos(currentAdmin);
             return response;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -45,5 +45,13 @@ public class AdminServiceImpl implements AdminService{
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public AdminDtos getAdminById(Long idAdmin){
+        return adminRepository.findById(idAdmin)
+                .map(adminUtils::convertAdminDtos)
+                .orElseThrow(() -> new RuntimeException("Administrador no encontrado por el id: " + idAdmin));
     }
 }

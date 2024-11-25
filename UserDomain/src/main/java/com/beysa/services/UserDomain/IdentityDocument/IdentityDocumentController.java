@@ -12,7 +12,7 @@ import com.beysa.services.UserDomain.Middlewares.ResponseUtils;
 
 @CrossOrigin(origins = "http://localhost:4200", originPatterns = "*")
 @RestController
-@RequestMapping("/api/v1/identityDocument")
+@RequestMapping("/api/v1/identity/document")
 
 public class IdentityDocumentController {
     @Autowired

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("api/v1/geographicalLocation")
+@RequestMapping("api/v1/geographical/location")
 public class GeographicalLocationController {
     @Autowired
     private GeographicalLocationService geographicalLocationService;
