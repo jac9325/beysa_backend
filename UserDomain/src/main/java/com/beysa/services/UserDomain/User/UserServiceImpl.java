@@ -102,5 +102,19 @@ public class UserServiceImpl implements UserService{
         throw new RuntimeException(e.getMessage());
     }
    }
+
+   @Transactional(readOnly = true)
+   @Override
+   public UserEntity getUserById(Long idUser){
+    try {
+        UserEntity currentUser = userRepository.findById(idUser).orElse(null);
+        if (currentUser==null){
+            throw new RuntimeException("Ha ocurrido un error al obtener el Usuario");
+        }
+        return currentUser;
+    } catch (Exception e) {
+        throw new RuntimeException(e.getMessage());
+    }
+   }
    
 }

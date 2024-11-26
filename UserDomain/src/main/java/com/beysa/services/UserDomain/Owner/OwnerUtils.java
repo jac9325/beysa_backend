@@ -17,7 +17,7 @@ public class OwnerUtils {
         response.setDocumentNumber(owner.getDocumentNumber());
         response.setEmail(owner.getEmail());
         response.setPhoneNumber(owner.getPhoneNumber());
-        response.setIdUser(owner.getUser().getId_user());
+        response.setIdUser(owner.getUser().getIdUser());
         response.setImage(owner.getImage());
         response.setStatus(owner.getStatus());
         return response;

@@ -12,7 +12,7 @@ public class UserClinicUtils {
         if (entity == null) return null;
         UserClinicDto dto = new UserClinicDto();
         dto.setIdUserClinic(entity.getIdUserClinic());
-        dto.setIdUser(entity.getUser().getId_user());
+        dto.setIdUser(entity.getUser().getIdUser());
         dto.setIdClinic(entity.getClinic().getIdClinic());
         dto.setStatus(entity.getStatus());
         return dto;

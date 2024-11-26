@@ -9,4 +9,5 @@ public interface UserService {
     UserEntity createUserAll(UserEntity currentUser, List<Rol> currentRols, Clinic clinic);
     UserEntity createUsuario(UserEntity request);
     Boolean changePasswordStaff(UserEntity newUser);
+    UserEntity getUserById(Long idUser);
 }

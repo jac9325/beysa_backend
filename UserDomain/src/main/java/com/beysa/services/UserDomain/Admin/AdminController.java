@@ -4,16 +4,12 @@ import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
-import com.beysa.services.UserDomain.Medic.DTO.MedicDto;
 import com.beysa.services.UserDomain.Middlewares.Codes;
 import com.beysa.services.UserDomain.Middlewares.Messages;
 import com.beysa.services.UserDomain.Middlewares.ResponseUtils;

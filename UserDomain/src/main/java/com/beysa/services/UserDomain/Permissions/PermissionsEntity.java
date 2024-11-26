@@ -26,8 +26,8 @@ public class PermissionsEntity {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "status")
     private Integer status;

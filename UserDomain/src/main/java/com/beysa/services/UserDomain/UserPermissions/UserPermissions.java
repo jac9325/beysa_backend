@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "t_user_permissions")
-
 public class UserPermissions{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
