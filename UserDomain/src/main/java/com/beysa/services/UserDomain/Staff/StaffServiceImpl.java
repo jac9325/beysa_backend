@@ -140,7 +140,6 @@ public class StaffServiceImpl implements StaffService{
                 }
             }
 
-
             /* Handle Staff */
             IdentityDocument currentDocument = identityDocumentService.getIdentityDocumentById(staffDto.getIdIdentityDocument());
             if (currentDocument == null){
@@ -158,7 +157,11 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setMobileNumber(staffDto.getMobileNumber());
             currentStaff.setEmail(staffDto.getEmail());
             currentStaff.setAddress(staffDto.getAddress());
-            currentStaff.setImage(staffDto.getImage());
+            if (staffDto.getGender() == "M"){
+                currentStaff.setImage("img-man-default.jpg");
+            }else{
+                currentStaff.setImage("img-woman-default.jpg");
+            }
             currentStaff.setDateEntry(staffDto.getDateEntry());
             currentStaff.setGeographicalLocation(currentGeographicalLocation);
             currentStaff.setSalary(staffDto.getSalary());
@@ -185,6 +188,9 @@ public class StaffServiceImpl implements StaffService{
             currentMedic.setCreateAd(medicDto.getCreateAd());
             currentMedic.setUpdateAd(medicDto.getUpdateAd());
             currentMedic.setStatus(1);
+            currentMedic.setSignature("img-signature-default.png");
+            currentMedic.setSloganMedic(medicDto.getSloganMedic());
+
             MedicDto currentmedicResponse = medicService.saveMedic(currentMedic);
             StaffMedic currentStaffResponse = new StaffMedic();
             currentStaffResponse.setGeographicalLocation(geoResponse);
@@ -277,12 +283,16 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setLastName(staffDto.getLastName());
             currentStaff.setDateOfBirth(staffDto.getDateOfBirth());
             currentStaff.setGender(staffDto.getGender());
+            if (staffDto.getGender() == "M"){
+                currentStaff.setImage("img-man-default.jpg");
+            }else{
+                currentStaff.setImage("img-woman-default.jpg");
+            }
             currentStaff.setIdentityDocument(currentDocument);
             currentStaff.setDocumentNumber(staffDto.getDocumentNumber());
             currentStaff.setMobileNumber(staffDto.getMobileNumber());
             currentStaff.setEmail(staffDto.getEmail());
             currentStaff.setAddress(staffDto.getAddress());
-            currentStaff.setImage(staffDto.getImage());
             currentStaff.setDateEntry(staffDto.getDateEntry());
             currentStaff.setGeographicalLocation(currentGeographicalLocation);
             currentStaff.setSalary(staffDto.getSalary());
@@ -305,6 +315,8 @@ public class StaffServiceImpl implements StaffService{
             currentCollaborator.setCreateAd(collaboratorDto.getCreateAd());
             currentCollaborator.setUpdateAd(collaboratorDto.getUpdateAd());
             currentCollaborator.setStatus(collaboratorDto.getStatus());
+            currentCollaborator.setSloganCollaborator(collaboratorDto.getSloganCollaborator());
+            currentCollaborator.setSignature("img-signature-default.png");
             CollaboratorDto currentCollaboratorResponse = collaboratorService.saveCollaborator(currentCollaborator);
             StaffCollaborator currentStaffResponse = new StaffCollaborator();
             currentStaffResponse.setGeographicalLocation(geoResponse);
@@ -402,7 +414,11 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setMobileNumber(staffDto.getMobileNumber());
             currentStaff.setEmail(staffDto.getEmail());
             currentStaff.setAddress(staffDto.getAddress());
-            currentStaff.setImage(staffDto.getImage());
+            if (staffDto.getGender() == "M"){
+                currentStaff.setImage("img-man-default.jpg");
+            }else{
+                currentStaff.setImage("img-woman-default.jpg");
+            }
             currentStaff.setDateEntry(staffDto.getDateEntry());
             currentStaff.setGeographicalLocation(currentGeographicalLocation);
             currentStaff.setSalary(staffDto.getSalary());
@@ -425,6 +441,8 @@ public class StaffServiceImpl implements StaffService{
             currentAdmin.setCreateAd(adminDtos.getCreateAd());
             currentAdmin.setUpdateAd(adminDtos.getUpdateAd());
             currentAdmin.setStatus(adminDtos.getStatus());
+            currentAdmin.setSloganAdmin(adminDtos.getSloganAdmin());
+            currentAdmin.setSignature("img-signature-default.png");
             AdminDtos adminResponse = adminService.saveAdmin(currentAdmin);
 
            StaffAdmin currentStaffResponse = new StaffAdmin();
@@ -500,6 +518,22 @@ public class StaffServiceImpl implements StaffService{
             staffRepository.save(oldStaff);
             return true;
 
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional
+    @Override
+    public Boolean updateImageStaff(Long idStaff, String pathImg){
+        try {
+            Staff currentStaff = staffRepository.findById(idStaff).orElse(null);
+            if (currentStaff == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Personal");
+            }
+            currentStaff.setImage(pathImg);
+            staffRepository.save(currentStaff);
+            return true;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

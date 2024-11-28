@@ -38,4 +38,10 @@ public class AdminEntity {
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "signature")
+    private String signature;
+
+    @Column(name = "slogan_admin")
+    private String sloganAdmin;
 }

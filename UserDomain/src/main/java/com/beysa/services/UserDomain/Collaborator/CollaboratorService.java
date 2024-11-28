@@ -9,4 +9,5 @@ public interface CollaboratorService {
     List<CollaboratorDto> getAllCollaborator();
     CollaboratorDto saveCollaborator(Collaborator collaborator);
     Boolean updateColaborator(CollaboratorDto newCollaborator);
+    Boolean updateSignatureCollaborator(Long idCollaborator, String pathSignature);
 }

@@ -19,6 +19,8 @@ public class AdminUtils {
         dto.setCreateAd(admin.getCreateAd());
         dto.setUpdateAd(admin.getUpdateAd());
         dto.setStatus(admin.getStatus());
+        dto.setSignature(admin.getSignature());
+        dto.setSloganAdmin(admin.getSloganAdmin());
         return dto;
     }
 

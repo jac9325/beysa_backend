@@ -38,4 +38,10 @@ public class Collaborator {
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "signature")
+    private String signature;
+
+    @Column(name = "slogan_collaborator")
+    private String sloganCollaborator;
 }

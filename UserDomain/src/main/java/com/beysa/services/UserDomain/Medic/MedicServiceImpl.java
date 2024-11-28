@@ -2,14 +2,21 @@ package com.beysa.services.UserDomain.Medic;
 
 import java.time.LocalDateTime;
 
-import javax.management.RuntimeErrorException;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.beysa.services.UserDomain.Medic.DTO.MedicDto;
+import com.beysa.services.UserDomain.Shared.ServerImage.StorageService;
 import com.beysa.services.UserDomain.Speciality.Speciality;
 import com.beysa.services.UserDomain.Speciality.SpecialityService;
+import com.beysa.services.UserDomain.Staff.Staff;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.List;
 
@@ -19,13 +26,16 @@ public class MedicServiceImpl implements MedicService{
     private final MedicRepository medicRepository;
     private final MedicUtils medicUtils;
     private final SpecialityService specialityService;
+    private final StorageService storageService;
 
     public MedicServiceImpl(MedicRepository medicRepository,
     MedicUtils medicUtils,
-    SpecialityService specialityService){
+    SpecialityService specialityService,
+    StorageService storageService){
         this.medicRepository = medicRepository;
         this.medicUtils = medicUtils;
         this.specialityService = specialityService;
+        this.storageService = storageService;
     }
 
     @Transactional
@@ -59,10 +69,10 @@ public class MedicServiceImpl implements MedicService{
                 if (currentSpeciality == null){
                     throw new RuntimeException("No se ha encontrado la Especialidad requerida");
                 }
-
                 oldMedic.setSpeciality(currentSpeciality);
                 oldMedic.setProfessionalLicenseNumber(newMedic.getProfessionalLicenseNumber());
                 oldMedic.setUpdateAd(LocalDateTime.now());
+                oldMedic.setSloganMedic(newMedic.getSloganMedic());
                 medicRepository.save(oldMedic);
                 response = true;
             }
@@ -90,17 +100,6 @@ public class MedicServiceImpl implements MedicService{
         return medicUtils.convertListMedicDto(listMedic);
     }
 
-    /*@Transactional
-    @Override
-    public MedicDto createMedic(MedicDto request){
-        if(request == null) throw new RuntimeException("Medico es nulo");
-        try {
-            Medic medic = convertMedicEntity(request);
-            medicRepository.save(medic);
-            return medicUtils.convertMedicDto(medic);
-        }catch (Exception e){ throw new RuntimeException("Error durante la operación de crear: " + e.getMessage(), e);}
-    }*/
-
     @Transactional
     @Override
     public Boolean deleteMedic(Long idMedic){
@@ -114,36 +113,19 @@ public class MedicServiceImpl implements MedicService{
                 .orElseThrow(() -> new RuntimeException("Medico no encontrado por el id: " + idMedic));
     }
 
-    // @Transactional
-    // @Override
-    // public MedicDto updateMedic(Long idMedic, MedicDto request) {
-    //     return medicRepository.findById(idMedic)
-    //             .map(existingMedic -> {
-    //                 try {
-    //                     Medic newRequest = medicUtils.convertMedicEntity(request);
-    //                     existingMedic.setSpeciality(newRequest.getSpeciality());
-    //                     existingMedic.setStaff(newRequest.getStaff());
-    //                     existingMedic.setProfessionalLicenseNumber(newRequest.getProfessionalLicenseNumber());
-    //                     existingMedic.setCreateAd(newRequest.getCreateAd());
-    //                     existingMedic.setUpdateAd(newRequest.getUpdateAd());
-    //                     Medic updatedMedic = medicRepository.save(existingMedic);
-    //                     return medicUtils.convertMedicDto(updatedMedic);
-    //                 } catch (Exception e){throw new RuntimeException("Error during update operation: " + e.getMessage(), e);}
-    //             })
-    //             .orElseThrow(() -> new RuntimeException("Medic not found for id: " + idMedic));
-    // }
-
-    /*public Medic convertMedicEntity(MedicDto medic){
-        Medic response = new Medic();
-        response.setIdMedic(medic.getIdMedic());
-        Staff staff = staffService.getStaffByIdEntity(medic.getIdStaff());
-        response.setStaff(staff);
-        Speciality speciality = specialityService.getSpecialityByIdEntity(medic.getIdSpeciality());
-        response.setSpeciality(speciality);
-        response.setProfessionalLicenseNumber(medic.getProfessionalLicenseNumber());
-        response.setCreateAd(medic.getCreateAd());
-        response.setUpdateAd(medic.getUpdateAd());
-        response.setStatus(medic.getStatus());
-        return response;
-    }*/
+    @Transactional
+    @Override
+    public Boolean updateSignatureMedic(Long idMedic, String pathSignature){
+        try {
+            Medic currentMedic = medicRepository.findById(idMedic).orElse(null);
+            if (currentMedic == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Médico");
+            }
+            currentMedic.setSignature(pathSignature);
+            medicRepository.save(currentMedic);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    } 
 }

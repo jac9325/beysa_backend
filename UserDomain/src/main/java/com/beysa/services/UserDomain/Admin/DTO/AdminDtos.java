@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,4 +19,6 @@ public class AdminDtos {
     private LocalDateTime createAd;
     private LocalDateTime updateAd;
     private Integer status;
+    private String signature;
+    private String sloganAdmin;
 }

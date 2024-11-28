@@ -19,6 +19,8 @@ public class CollaboratorUtils {
         dto.setCreateAd(collaborator.getCreateAd());
         dto.setUpdateAd(collaborator.getUpdateAd());
         dto.setStatus(collaborator.getStatus());
+        dto.setSignature(collaborator.getSignature());
+        dto.setSloganCollaborator(collaborator.getSloganCollaborator());
         return dto;
     }
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.beysa.services.UserDomain.Admin.DTO.AdminDtos;
+import com.beysa.services.UserDomain.Medic.Medic;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -54,4 +55,20 @@ public class AdminServiceImpl implements AdminService{
                 .map(adminUtils::convertAdminDtos)
                 .orElseThrow(() -> new RuntimeException("Administrador no encontrado por el id: " + idAdmin));
     }
+
+    @Transactional
+    @Override
+    public Boolean updateSignatureAdmin(Long idAdmin, String pathSignature){
+        try {
+            AdminEntity currentAdmin = adminRepository.findById(idAdmin).orElse(null);
+            if (currentAdmin == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Médico");
+            }
+            currentAdmin.setSignature(pathSignature);
+            adminRepository.save(currentAdmin);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    } 
 }

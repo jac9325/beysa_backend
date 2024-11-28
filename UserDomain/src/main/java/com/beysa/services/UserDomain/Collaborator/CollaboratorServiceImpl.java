@@ -1,5 +1,6 @@
 package com.beysa.services.UserDomain.Collaborator;
 
+import com.beysa.services.UserDomain.Admin.AdminEntity;
 import com.beysa.services.UserDomain.Collaborator.DTO.CollaboratorDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,4 +67,20 @@ public class CollaboratorServiceImpl implements CollaboratorService{
             throw new RuntimeException();
         }
     }
+
+    @Transactional
+    @Override
+    public Boolean updateSignatureCollaborator(Long idCollaborator, String pathSignature){
+        try {
+            Collaborator currentCollaborator = collaboratorRepository.findById(idCollaborator).orElse(null);
+            if (currentCollaborator == null){
+                throw new RuntimeException("Ha ocurrido un error al obtener el Colaborador");
+            }
+            currentCollaborator.setSignature(pathSignature);
+            collaboratorRepository.save(currentCollaborator);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    } 
 }

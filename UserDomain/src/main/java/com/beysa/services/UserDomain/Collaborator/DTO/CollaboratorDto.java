@@ -17,4 +17,6 @@ public class CollaboratorDto {
     private LocalDateTime createAd;
     private LocalDateTime updateAd;
     private Integer status;
+    private String signature;
+    private String sloganCollaborator;
 }

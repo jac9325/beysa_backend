@@ -17,4 +17,6 @@ public class MedicDto {
     private LocalDateTime createAd;
     private LocalDateTime updateAd;
     private Integer status;
+    private String signature;
+    private String sloganMedic;
 }

@@ -19,6 +19,8 @@ public class MedicUtils {
         dto.setCreateAd(medic.getCreateAd());
         dto.setUpdateAd(medic.getUpdateAd());
         dto.setStatus(medic.getStatus());
+        dto.setSignature(medic.getSignature());
+        dto.setSloganMedic(medic.getSloganMedic());
         return dto;
     }
 
