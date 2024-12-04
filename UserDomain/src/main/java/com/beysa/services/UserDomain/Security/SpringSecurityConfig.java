@@ -39,7 +39,7 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /*@Bean
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests((authz) -> authz
         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
@@ -59,17 +59,17 @@ public class SpringSecurityConfig {
                 .cors(cors->cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
-    }*/
-
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests((authz) -> authz
-                        .anyRequest().permitAll())
-                .csrf(config -> config.disable())
-                .cors(cors->cors.configurationSource(corsConfigurationSource()))
-                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .build();
     }
+
+    // @Bean
+    // SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    //     return http.authorizeHttpRequests((authz) -> authz
+    //                     .anyRequest().permitAll())
+    //             .csrf(config -> config.disable())
+    //             .cors(cors->cors.configurationSource(corsConfigurationSource()))
+    //             .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    //             .build();
+    // }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource(){

@@ -35,6 +35,5 @@ public class RolePermissions{
     private PermissionsEntity permissions;
 
     @Column(name = "status")
-    private Integer status;
-          
+    private Integer status;     
 }

@@ -35,5 +35,4 @@ public class UserController {
             return response.error(codes.error(), messages.error() + e.getMessage(), null);
         }
     }
-    
 }

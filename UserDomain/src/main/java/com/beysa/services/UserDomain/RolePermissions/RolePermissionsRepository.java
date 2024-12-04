@@ -8,4 +8,5 @@ import java.util.List;
 public interface RolePermissionsRepository extends JpaRepository<RolePermissions, Long> {
     @Query(value="SELECT * FROM t_role_permissions WHERE id_role = ?1", nativeQuery = true)
     List<RolePermissions> findByIdRole(Long idRole);
+
 }

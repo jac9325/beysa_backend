@@ -180,6 +180,7 @@ public class StaffServiceImpl implements StaffService{
             if (speciality == null){
                 throw new RuntimeException("Ha ocurrido un error al obtener la Especialidad del Médico");
             }
+
             Medic currentMedic = new Medic();
             currentMedic.setIdMedic(medicDto.getIdMedic());
             currentMedic.setSpeciality(speciality);

@@ -34,7 +34,7 @@ public class GeographicalLocationController {
     }
 
     @GetMapping("/get/generic/data")
-    public ResponseEntity<?> getMethodName() {
+    public ResponseEntity<?> getChargeGenericData() {
         try{
             GenericData result = geographicalLocationService.chargeGenericData();
             return response.ok(codes.ok(), messages.ok(), result, null);
@@ -42,5 +42,4 @@ public class GeographicalLocationController {
             return response.error(codes.error(), messages.error() + e.getMessage(), null);
         }
     }
-    
 }
