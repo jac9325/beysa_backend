@@ -17,7 +17,7 @@ public class ClinicConfiguration {
     @Column(name = "id_clinic_configuration")
     private Long idClinicConfiguration;
 
-    @Column(name = "star_day")
+    @Column(name = "start_day")
     private String starDay;
 
     @Column(name = "decimal_number")

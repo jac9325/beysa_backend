@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClinicConfigurationDto {
     private Long idClinicConfiguration;
-    private String starDay;
+    private String startDay;
     private Integer decimalNumber;
     private String historyNumber;
     private Integer paginationNumber;

@@ -33,6 +33,23 @@ public class ClinicServiceImpl implements ClinicService{
 
     @Transactional
     @Override
+    public ClinicAndConfigurationDto getClinicAndConfigurationByIdUser(Long idUser){
+        /*Los servicios manejan RuntimeException para la validación*/
+        Clinic clinic = clinicRepository.findClinicByUser(idUser).orElse(null);
+        if (clinic == null){
+            throw new RuntimeException("Ha ocurrido un error al obtener la Clinica");
+        }
+        ClinicDto currentClinic = clinicUtils.convertClinicDto(clinic);
+        ClinicConfigurationDto clinicConfiguration = clinicConfigurationService.getClinicConfigurationByIdClinic(currentClinic.getIdClinic());
+
+        ClinicAndConfigurationDto clinicAndConfiguration = new ClinicAndConfigurationDto();
+        clinicAndConfiguration.setClinic(currentClinic);
+        clinicAndConfiguration.setClinicConfiguration(clinicConfiguration);
+        return clinicAndConfiguration;
+    }
+
+    @Transactional
+    @Override
     public ClinicAndConfigurationDto getClinicAndConfigurationById(Long idClinic){
         /*Los servicios manejan RuntimeException para la validación*/
         ClinicDto clinic = getClinicById(idClinic);

@@ -7,4 +7,5 @@ public interface ClinicService {
     ClinicDto getClinicById(Long idClinic);
     Clinic getClinicByIdEntity(Long idClinic);
     ClinicAndConfigurationDto getClinicAndConfigurationById(Long idClinic);
+    ClinicAndConfigurationDto getClinicAndConfigurationByIdUser(Long idUser);
 }

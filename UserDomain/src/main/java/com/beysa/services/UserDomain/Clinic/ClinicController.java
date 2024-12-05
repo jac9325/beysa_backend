@@ -39,4 +39,14 @@ public class ClinicController {
             return response.error(codes.error(), messages.error() + ": " + e.getMessage(), null);
         }
     }
+
+    @GetMapping("/get/Clinic/and/configuration/user/{iduser}")
+    public ResponseEntity<?> getClinicAndConfigurationByIdUser(@PathVariable(value = "iduser") Long iduser){
+        try {
+            ClinicAndConfigurationDto clinicAndConfiguration = clinicService.getClinicAndConfigurationByIdUser(iduser);
+            return response.ok(codes.ok(), messages.ok(), clinicAndConfiguration, null);
+        } catch (Exception e){
+            return response.error(codes.error(), messages.error() + ": " + e.getMessage(), null);
+        }
+    }
 }

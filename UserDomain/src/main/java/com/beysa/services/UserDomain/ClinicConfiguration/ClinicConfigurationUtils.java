@@ -12,7 +12,7 @@ public class ClinicConfigurationUtils {
     public ClinicConfigurationDto convertClinicConfigurationDto(ClinicConfiguration clinicConfiguration){
         ClinicConfigurationDto response = new ClinicConfigurationDto();
         response.setIdClinicConfiguration(clinicConfiguration.getIdClinicConfiguration());
-        response.setStarDay(clinicConfiguration.getStarDay());
+        response.setStartDay(clinicConfiguration.getStarDay());
         response.setDecimalNumber(clinicConfiguration.getDecimalNumber());
         response.setHistoryNumber(clinicConfiguration.getHistoryNumber());
         response.setPaginationNumber(clinicConfiguration.getPaginationNumber());
