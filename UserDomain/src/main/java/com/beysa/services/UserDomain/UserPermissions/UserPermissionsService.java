@@ -11,4 +11,5 @@ public interface UserPermissionsService {
     UserPermissions getUserPermissionsById(Long idUserPermissions);
     Boolean deteleUserPermisisions(List<UserPermissionsDto> userPermissionsDtos);
     Boolean addUserPermisisions(List<UserPermissionsDto> userPermissionsDtos);
+    List<UserPermissionsDto> getListUserPermissionsByUserDto(Long idUser);
 }

@@ -3,7 +3,9 @@ package com.beysa.services.UserDomain.UserRoles;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -39,4 +41,18 @@ public class UserRolServiceImpl implements UserRolService{
         }
     }  
 
+    @Transactional
+    @Override
+    public UserRol getUserRolByUsuario(Long idUser){
+        try {
+            List<UserRol> currentList = usuarioRolRepository.getUserRolList(idUser);
+            if (currentList.size() <= 0){
+                throw new RuntimeException("No hay Roles para el Usuario");
+            }
+            UserRol currentUserRol = currentList.get(0);
+            return currentUserRol;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.beysa.services.UserDomain.Clinic.Clinic;
 import com.beysa.services.UserDomain.Configuration.UsuarioSecurityConfig;
 import com.beysa.services.UserDomain.Rol.Rol;
+import com.beysa.services.UserDomain.User.DTO.UserSend;
 import com.beysa.services.UserDomain.UserClinic.UserClinic;
 import com.beysa.services.UserDomain.UserClinic.UserClinicService;
 import com.beysa.services.UserDomain.UserRoles.UserRol;
@@ -20,13 +21,18 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    private UserRolService userRolService;
-
     private final UserClinicService userClinicService;
+    private final UserRolService userRolService;
+    private final UserUtils userUtils;
 
-    public UserServiceImpl(UserClinicService userClinicService){
+    public UserServiceImpl(
+        UserClinicService userClinicService,
+        UserRolService userRolService,
+        UserUtils userUtils
+    ){
         this.userClinicService = userClinicService;
+        this.userRolService = userRolService;
+        this.userUtils = userUtils;
     }
 
     @Transactional
@@ -116,5 +122,16 @@ public class UserServiceImpl implements UserService{
         throw new RuntimeException(e.getMessage());
     }
    }
-   
+
+   @Transactional
+   @Override
+   public UserSend findByUsernameUserSend(String username){
+    try {
+        UserEntity currentUser = userRepository.findByUserName(username).orElse(null);
+        UserSend userResponse = userUtils.convertUserSendDto(currentUser);
+        return userResponse;
+    } catch (Exception e) {
+        throw new RuntimeException(e.getMessage());
+    }
+   }
 }

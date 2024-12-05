@@ -5,4 +5,5 @@ import java.util.List;
 public interface UserRolService {
     List<UserRol> getAllRol();
     UserRol save(UserRol usuarioRol);
+    UserRol getUserRolByUsuario(Long idUser);
 }

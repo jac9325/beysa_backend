@@ -44,13 +44,17 @@ import com.beysa.services.UserDomain.Staff.DTO.StaffDto;
 import com.beysa.services.UserDomain.Staff.DTO.StaffMedic;
 import com.beysa.services.UserDomain.User.UserEntity;
 import com.beysa.services.UserDomain.User.UserService;
+import com.beysa.services.UserDomain.User.DTO.UserChargeData;
+import com.beysa.services.UserDomain.User.DTO.UserSend;
 import com.beysa.services.UserDomain.UserPermissions.UserPermissions;
 import com.beysa.services.UserDomain.UserPermissions.UserPermissionsService;
 import com.beysa.services.UserDomain.UserPermissions.DTO.UserPermissionsDto;
+import com.beysa.services.UserDomain.UserRoles.UserRol;
+import com.beysa.services.UserDomain.UserRoles.UserRolService;
 
 @Service
 @RequiredArgsConstructor
-public class StaffServiceImpl implements StaffService{
+public class StaffServiceImpl implements StaffService {
 
     private final MedicService medicService;
     private final CountryService countryService;
@@ -69,11 +73,11 @@ public class StaffServiceImpl implements StaffService{
     private final AdminService adminService;
     private final UserPermissionsService userPermissionsService;
     private final PermissionsService permissionsService;
-
+    private final UserRolService userRolService;
 
     @Transactional
     @Override
-    public StaffMedic registerNewMedic(StaffMedic staffMedic){
+    public StaffMedic registerNewMedic(StaffMedic staffMedic) {
         try {
             GeographicalLocationDto currentGeo = staffMedic.getGeographicalLocation();
             UserEntity currentUser = staffMedic.getUser();
@@ -81,28 +85,28 @@ public class StaffServiceImpl implements StaffService{
             MedicDto medicDto = staffMedic.getMedic();
             Clinic currentClinic = clinicService.getClinicByIdEntity(staffMedic.getIdClinic());
             List<UserPermissionsDto> currentListPermissions = staffMedic.getUserPermissions();
-            if (currentClinic == null){
+            if (currentClinic == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener la Clínica");
             }
-            
-            /*Handle GeographicalLocation */
+
+            /* Handle GeographicalLocation */
             Country currentCountry = countryService.getCountryById(currentGeo.getIdCountry());
-            if (currentCountry == null){
+            if (currentCountry == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Pais");
             }
 
             Department currentDepartment = departmentService.getDepartmentById(currentGeo.getIdDepartment());
-            if (currentDepartment == null){
+            if (currentDepartment == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Departamento");
             }
 
             Province currentProvince = provinceService.getProvinceByIdEntity(currentGeo.getIdProvince());
-            if (currentProvince == null){
+            if (currentProvince == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener la Provincia");
             }
 
             District currentDistrict = districtService.getDistrictByIdEntity(currentGeo.getIdCountry());
-            if (currentDistrict == null){
+            if (currentDistrict == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Distrito");
             }
 
@@ -112,25 +116,27 @@ public class StaffServiceImpl implements StaffService{
             currentGeographicalLocation.setProvince(currentProvince);
             currentGeographicalLocation.setDistrict(currentDistrict);
             currentGeographicalLocation.setStatus(1);
-            GeographicalLocationDto geoResponse= geographicalLocationService.saveGeoGraphical(currentGeographicalLocation);
-            if (currentGeographicalLocation.getIdGeographicalLocation() <= 0){
+            GeographicalLocationDto geoResponse = geographicalLocationService
+                    .saveGeoGraphical(currentGeographicalLocation);
+            if (currentGeographicalLocation.getIdGeographicalLocation() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar la Ubicación Geográfica");
             }
 
-            /*Handle User */
+            /* Handle User */
             List<Rol> currentRols = new ArrayList<Rol>();
             String rolName = ERole.ROLE_MEDIC.toString();
             Rol currentRol = rolService.getRolByName(rolName);
             currentRols.add(currentRol);
             currentUser = userService.createUserAll(currentUser, currentRols, currentClinic);
-            if (currentUser.getIdUser() <= 0){
+            if (currentUser.getIdUser() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar el Usuario");
             }
 
             /* Handle Permissions */
-            if (currentListPermissions.size() > 0){
+            if (currentListPermissions.size() > 0) {
                 for (UserPermissionsDto userPermissions : currentListPermissions) {
-                    PermissionsEntity currentPermission = permissionsService.getPermissionById(userPermissions.getIdPermissions());
+                    PermissionsEntity currentPermission = permissionsService
+                            .getPermissionById(userPermissions.getIdPermissions());
                     UserPermissions currentSaveUserPer = new UserPermissions();
                     currentSaveUserPer.setIdUserPermissions(0L);
                     currentSaveUserPer.setPermissions(currentPermission);
@@ -141,8 +147,9 @@ public class StaffServiceImpl implements StaffService{
             }
 
             /* Handle Staff */
-            IdentityDocument currentDocument = identityDocumentService.getIdentityDocumentById(staffDto.getIdIdentityDocument());
-            if (currentDocument == null){
+            IdentityDocument currentDocument = identityDocumentService
+                    .getIdentityDocumentById(staffDto.getIdIdentityDocument());
+            if (currentDocument == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Documento de Identidad");
             }
 
@@ -157,9 +164,9 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setMobileNumber(staffDto.getMobileNumber());
             currentStaff.setEmail(staffDto.getEmail());
             currentStaff.setAddress(staffDto.getAddress());
-            if (staffDto.getGender() == "M"){
+            if (staffDto.getGender() == "M") {
                 currentStaff.setImage("img-man-default.jpg");
-            }else{
+            } else {
                 currentStaff.setImage("img-woman-default.jpg");
             }
             currentStaff.setDateEntry(staffDto.getDateEntry());
@@ -170,14 +177,14 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setTypeStaff(StaffEnum.TYPE_MEDIC);
             currentStaff = staffRepository.save(currentStaff);
             currentStaff.setUser(currentUser);
-            if (currentStaff.getIdStaff()<=0){
+            if (currentStaff.getIdStaff() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar el Empleado");
             }
-            StaffDto staffdtoResponse= staffUtils.convertStaffDto(currentStaff);
+            StaffDto staffdtoResponse = staffUtils.convertStaffDto(currentStaff);
 
             /* Handle */
             Speciality speciality = specialityService.getSpeciality(medicDto.getIdSpeciality());
-            if (speciality == null){
+            if (speciality == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener la Especialidad del Médico");
             }
 
@@ -205,7 +212,7 @@ public class StaffServiceImpl implements StaffService{
 
     @Transactional
     @Override
-    public StaffCollaborator registerNewCollaborator(StaffCollaborator staffCollaborator){
+    public StaffCollaborator registerNewCollaborator(StaffCollaborator staffCollaborator) {
         try {
             GeographicalLocationDto currentGeo = staffCollaborator.getGeographicalLocation();
             UserEntity currentUser = staffCollaborator.getUser();
@@ -213,28 +220,28 @@ public class StaffServiceImpl implements StaffService{
             CollaboratorDto collaboratorDto = staffCollaborator.getCollaborator();
             List<UserPermissionsDto> currentListPermissions = staffCollaborator.getUserPermissions();
             Clinic currentClinic = clinicService.getClinicByIdEntity(staffCollaborator.getIdClinic());
-            if (currentClinic == null){
+            if (currentClinic == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener la Clínica");
             }
-            
-            /*Handle GeographicalLocation */
+
+            /* Handle GeographicalLocation */
             Country currentCountry = countryService.getCountryById(currentGeo.getIdCountry());
-            if (currentCountry == null){
+            if (currentCountry == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Pais");
             }
 
             Department currentDepartment = departmentService.getDepartmentById(currentGeo.getIdDepartment());
-            if (currentDepartment == null){
+            if (currentDepartment == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Departamento");
             }
 
             Province currentProvince = provinceService.getProvinceByIdEntity(currentGeo.getIdProvince());
-            if (currentProvince == null){
+            if (currentProvince == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener la Provincia");
             }
 
             District currentDistrict = districtService.getDistrictByIdEntity(currentGeo.getIdCountry());
-            if (currentDistrict == null){
+            if (currentDistrict == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Distrito");
             }
 
@@ -244,25 +251,27 @@ public class StaffServiceImpl implements StaffService{
             currentGeographicalLocation.setProvince(currentProvince);
             currentGeographicalLocation.setDistrict(currentDistrict);
             currentGeographicalLocation.setStatus(1);
-            GeographicalLocationDto geoResponse= geographicalLocationService.saveGeoGraphical(currentGeographicalLocation);
-            if (currentGeographicalLocation.getIdGeographicalLocation() <= 0){
+            GeographicalLocationDto geoResponse = geographicalLocationService
+                    .saveGeoGraphical(currentGeographicalLocation);
+            if (currentGeographicalLocation.getIdGeographicalLocation() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar la Ubicación Geográfica");
             }
 
-            /*Handle User */
+            /* Handle User */
             List<Rol> currentRols = new ArrayList<Rol>();
             String rolName = ERole.ROLE_COLLABORATOR.toString();
             Rol currentRol = rolService.getRolByName(rolName);
             currentRols.add(currentRol);
             currentUser = userService.createUserAll(currentUser, currentRols, currentClinic);
-            if (currentUser.getIdUser() <= 0){
+            if (currentUser.getIdUser() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar el Usuario");
             }
 
             /* Handle Permissions */
-            if (currentListPermissions.size() > 0){
+            if (currentListPermissions.size() > 0) {
                 for (UserPermissionsDto userPermissions : currentListPermissions) {
-                    PermissionsEntity currentPermission = permissionsService.getPermissionById(userPermissions.getIdPermissions());
+                    PermissionsEntity currentPermission = permissionsService
+                            .getPermissionById(userPermissions.getIdPermissions());
                     UserPermissions currentSaveUserPer = new UserPermissions();
                     currentSaveUserPer.setIdUserPermissions(0L);
                     currentSaveUserPer.setPermissions(currentPermission);
@@ -273,8 +282,9 @@ public class StaffServiceImpl implements StaffService{
             }
 
             /* Handle Staff */
-            IdentityDocument currentDocument = identityDocumentService.getIdentityDocumentById(staffDto.getIdIdentityDocument());
-            if (currentDocument == null){
+            IdentityDocument currentDocument = identityDocumentService
+                    .getIdentityDocumentById(staffDto.getIdIdentityDocument());
+            if (currentDocument == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Documento de Identidad");
             }
 
@@ -284,9 +294,9 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setLastName(staffDto.getLastName());
             currentStaff.setDateOfBirth(staffDto.getDateOfBirth());
             currentStaff.setGender(staffDto.getGender());
-            if (staffDto.getGender() == "M"){
+            if (staffDto.getGender() == "M") {
                 currentStaff.setImage("img-man-default.jpg");
-            }else{
+            } else {
                 currentStaff.setImage("img-woman-default.jpg");
             }
             currentStaff.setIdentityDocument(currentDocument);
@@ -302,10 +312,10 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setTypeStaff(StaffEnum.TYPE_COLLABORATOR);
             currentStaff = staffRepository.save(currentStaff);
             currentStaff.setUser(currentUser);
-            if (currentStaff.getIdStaff()<=0){
+            if (currentStaff.getIdStaff() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar el Empleado");
             }
-            StaffDto staffdtoResponse= staffUtils.convertStaffDto(currentStaff);
+            StaffDto staffdtoResponse = staffUtils.convertStaffDto(currentStaff);
 
             /* Handle */
             Collaborator currentCollaborator = new Collaborator();
@@ -331,7 +341,7 @@ public class StaffServiceImpl implements StaffService{
 
     @Transactional
     @Override
-    public StaffAdmin registerNewAdmin(StaffAdmin staffAdmin){
+    public StaffAdmin registerNewAdmin(StaffAdmin staffAdmin) {
         try {
             GeographicalLocationDto currentGeo = staffAdmin.getGeographicalLocation();
             UserEntity currentUser = staffAdmin.getUser();
@@ -339,28 +349,28 @@ public class StaffServiceImpl implements StaffService{
             AdminDtos adminDtos = staffAdmin.getAdmin();
             List<UserPermissionsDto> currentListPermissions = staffAdmin.getUserPermissions();
             Clinic currentClinic = clinicService.getClinicByIdEntity(staffAdmin.getIdClinic());
-            if (currentClinic == null){
+            if (currentClinic == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener la Clínica");
             }
-            
-            /*Handle GeographicalLocation */
+
+            /* Handle GeographicalLocation */
             Country currentCountry = countryService.getCountryById(currentGeo.getIdCountry());
-            if (currentCountry == null){
+            if (currentCountry == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Pais");
             }
 
             Department currentDepartment = departmentService.getDepartmentById(currentGeo.getIdDepartment());
-            if (currentDepartment == null){
+            if (currentDepartment == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Departamento");
             }
 
             Province currentProvince = provinceService.getProvinceByIdEntity(currentGeo.getIdProvince());
-            if (currentProvince == null){
+            if (currentProvince == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener la Provincia");
             }
 
             District currentDistrict = districtService.getDistrictByIdEntity(currentGeo.getIdCountry());
-            if (currentDistrict == null){
+            if (currentDistrict == null) {
                 throw new RuntimeException("Ha ocurrido un error al Obtener el Distrito");
             }
 
@@ -370,25 +380,27 @@ public class StaffServiceImpl implements StaffService{
             currentGeographicalLocation.setProvince(currentProvince);
             currentGeographicalLocation.setDistrict(currentDistrict);
             currentGeographicalLocation.setStatus(1);
-            GeographicalLocationDto geoResponse= geographicalLocationService.saveGeoGraphical(currentGeographicalLocation);
-            if (currentGeographicalLocation.getIdGeographicalLocation() <= 0){
+            GeographicalLocationDto geoResponse = geographicalLocationService
+                    .saveGeoGraphical(currentGeographicalLocation);
+            if (currentGeographicalLocation.getIdGeographicalLocation() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar la Ubicación Geográfica");
             }
 
-            /*Handle User */
+            /* Handle User */
             List<Rol> currentRols = new ArrayList<Rol>();
             String rolName = ERole.ROLE_ADMIN.toString();
             Rol currentRol = rolService.getRolByName(rolName);
             currentRols.add(currentRol);
             currentUser = userService.createUserAll(currentUser, currentRols, currentClinic);
-            if (currentUser.getIdUser() <= 0){
+            if (currentUser.getIdUser() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar el Usuario");
             }
 
             /* Handle Permissions */
-            if (currentListPermissions.size() > 0){
+            if (currentListPermissions.size() > 0) {
                 for (UserPermissionsDto userPermissions : currentListPermissions) {
-                    PermissionsEntity currentPermission = permissionsService.getPermissionById(userPermissions.getIdPermissions());
+                    PermissionsEntity currentPermission = permissionsService
+                            .getPermissionById(userPermissions.getIdPermissions());
                     UserPermissions currentSaveUserPer = new UserPermissions();
                     currentSaveUserPer.setIdUserPermissions(0L);
                     currentSaveUserPer.setPermissions(currentPermission);
@@ -399,8 +411,9 @@ public class StaffServiceImpl implements StaffService{
             }
 
             /* Handle Staff */
-            IdentityDocument currentDocument = identityDocumentService.getIdentityDocumentById(staffDto.getIdIdentityDocument());
-            if (currentDocument == null){
+            IdentityDocument currentDocument = identityDocumentService
+                    .getIdentityDocumentById(staffDto.getIdIdentityDocument());
+            if (currentDocument == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Documento de Identidad");
             }
 
@@ -415,9 +428,9 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setMobileNumber(staffDto.getMobileNumber());
             currentStaff.setEmail(staffDto.getEmail());
             currentStaff.setAddress(staffDto.getAddress());
-            if (staffDto.getGender() == "M"){
+            if (staffDto.getGender() == "M") {
                 currentStaff.setImage("img-man-default.jpg");
-            }else{
+            } else {
                 currentStaff.setImage("img-woman-default.jpg");
             }
             currentStaff.setDateEntry(staffDto.getDateEntry());
@@ -428,10 +441,10 @@ public class StaffServiceImpl implements StaffService{
             currentStaff.setTypeStaff(StaffEnum.TYPE_ADMIN);
             currentStaff = staffRepository.save(currentStaff);
             currentStaff.setUser(currentUser);
-            if (currentStaff.getIdStaff()<=0){
+            if (currentStaff.getIdStaff() <= 0) {
                 throw new RuntimeException("Ha ocurrido un error al guardar el Empleado");
             }
-            StaffDto staffdtoResponse= staffUtils.convertStaffDto(currentStaff);
+            StaffDto staffdtoResponse = staffUtils.convertStaffDto(currentStaff);
 
             /* Handle */
             AdminEntity currentAdmin = new AdminEntity();
@@ -446,7 +459,7 @@ public class StaffServiceImpl implements StaffService{
             currentAdmin.setSignature("img-signature-default.png");
             AdminDtos adminResponse = adminService.saveAdmin(currentAdmin);
 
-           StaffAdmin currentStaffResponse = new StaffAdmin();
+            StaffAdmin currentStaffResponse = new StaffAdmin();
             currentStaffResponse.setGeographicalLocation(geoResponse);
             currentStaffResponse.setAdmin(adminResponse);
             currentStaffResponse.setStaff(staffdtoResponse);
@@ -458,36 +471,38 @@ public class StaffServiceImpl implements StaffService{
 
     @Transactional(readOnly = true)
     @Override
-    public Staff getStaffByIdEntity(Long idStaff){
+    public Staff getStaffByIdEntity(Long idStaff) {
         return staffRepository.findById(idStaff)
                 .orElseThrow(() -> new RuntimeException("Personal no encontrado por el id: " + idStaff));
     }
 
     @Transactional
     @Override
-    public Boolean updateStaff(StaffDto newStaff, GeographicalLocationDto newGeographicalLocation){
+    public Boolean updateStaff(StaffDto newStaff, GeographicalLocationDto newGeographicalLocation) {
         try {
-            if (newStaff == null){
+            if (newStaff == null) {
                 throw new RuntimeException("Ha ocurrido un error al actualizar el Personal");
             }
-            GeographicalLocation oldGeographicalLocation = geographicalLocationService.getGeographicalLocationByIdEntity(newGeographicalLocation.getIdGeographicalLocation());
-            if (oldGeographicalLocation == null){
+            GeographicalLocation oldGeographicalLocation = geographicalLocationService
+                    .getGeographicalLocationByIdEntity(newGeographicalLocation.getIdGeographicalLocation());
+            if (oldGeographicalLocation == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener la Ubicación Geográfica");
             }
             Country currentCountry = countryService.getCountryById(newGeographicalLocation.getIdCountry());
-            if (currentCountry == null){
+            if (currentCountry == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el País");
             }
-            Department currentDepartment = departmentService.getDepartmentById(newGeographicalLocation.getIdDepartment());
-            if (currentDepartment == null){
+            Department currentDepartment = departmentService
+                    .getDepartmentById(newGeographicalLocation.getIdDepartment());
+            if (currentDepartment == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Departamento");
             }
             Province currentProvince = provinceService.getProvinceByIdEntity(newGeographicalLocation.getIdProvince());
-            if (currentProvince == null){
+            if (currentProvince == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener la Provincia");
             }
             District currentDistrict = districtService.getDistrictByIdEntity(newGeographicalLocation.getIdDistrict());
-            if (currentDistrict == null){
+            if (currentDistrict == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Distrito");
             }
             oldGeographicalLocation.setCountry(currentCountry);
@@ -495,13 +510,14 @@ public class StaffServiceImpl implements StaffService{
             oldGeographicalLocation.setProvince(currentProvince);
             oldGeographicalLocation.setDistrict(currentDistrict);
             geographicalLocationService.saveGeoGraphical(oldGeographicalLocation);
-            /**Handle Staff */
+            /** Handle Staff */
             Staff oldStaff = staffRepository.findById(newStaff.getIdStaff()).orElse(null);
-            if (oldStaff == null){
+            if (oldStaff == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Personal");
             }
-            IdentityDocument currentDocument = identityDocumentService.getIdentityDocumentById(newStaff.getIdIdentityDocument());
-            if (currentDocument == null){
+            IdentityDocument currentDocument = identityDocumentService
+                    .getIdentityDocumentById(newStaff.getIdIdentityDocument());
+            if (currentDocument == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Documento de Identidad");
             }
             oldStaff.setName(newStaff.getName());
@@ -526,10 +542,10 @@ public class StaffServiceImpl implements StaffService{
 
     @Transactional
     @Override
-    public Boolean updateImageStaff(Long idStaff, String pathImg){
+    public Boolean updateImageStaff(Long idStaff, String pathImg) {
         try {
             Staff currentStaff = staffRepository.findById(idStaff).orElse(null);
-            if (currentStaff == null){
+            if (currentStaff == null) {
                 throw new RuntimeException("Ha ocurrido un error al obtener el Personal");
             }
             currentStaff.setImage(pathImg);
@@ -538,5 +554,23 @@ public class StaffServiceImpl implements StaffService{
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserChargeData chargeDataUser(String username) {
+        UserSend currentUser = userService.findByUsernameUserSend(username);
+        if (currentUser == null) {
+            throw new RuntimeException("Ha ocurrido un error al obtener el Usuario");
+        }
+        UserRol auxUserRol = userRolService.getUserRolByUsuario(currentUser.getIdUser());
+        Rol currentRol = auxUserRol.getRol();
+        List<UserPermissionsDto> currentPermissions = userPermissionsService.getListUserPermissionsByUserDto(currentUser.getIdUser());
+
+        UserChargeData currentResponse = new UserChargeData();
+        currentResponse.setUser(currentUser);
+        currentResponse.setRol(currentRol);
+        currentResponse.setPermissions(currentPermissions);
+        return currentResponse;
     }
 }

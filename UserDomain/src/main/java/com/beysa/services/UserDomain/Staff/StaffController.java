@@ -26,6 +26,7 @@ import com.beysa.services.UserDomain.Staff.DTO.StaffAdmin;
 import com.beysa.services.UserDomain.Staff.DTO.StaffCollaborator;
 import com.beysa.services.UserDomain.Staff.DTO.StaffMedic;
 import com.beysa.services.UserDomain.Staff.DTO.StaffWithUbication;
+import com.beysa.services.UserDomain.User.DTO.UserChargeData;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -127,5 +128,18 @@ public class StaffController {
                 .ok()
                 .header(HttpHeaders.CONTENT_TYPE, contentType)
                 .body(file);
+    }
+
+    @GetMapping("/get/charge/data/initial/{username}")
+    public ResponseEntity<?> createUsuarioRoles(@PathVariable(value="username") String username) {
+        try {
+            UserChargeData result = staffService.chargeDataUser(username);
+            if (result == null) {
+                return response.error(codes.error(), messages.error(), null);
+            }
+            return response.ok(codes.ok(), messages.ok(), result, null);
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
     }
 }

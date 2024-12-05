@@ -26,12 +26,15 @@ public class UserPermissionsServiceImpl implements UserPermissionsService{
 
     private UserService userService;
     private PermissionsService permissionsService;
+    private UserPermissionsUtils userPermissionsUtils;
     public UserPermissionsServiceImpl(
         UserService userService,
-        PermissionsService permissionsService
+        PermissionsService permissionsService,
+        UserPermissionsUtils userPermissionsUtils
     ){
         this.userService = userService;
         this.permissionsService = permissionsService;
+        this.userPermissionsUtils = userPermissionsUtils;
     }
 
     @Override
@@ -176,6 +179,18 @@ public class UserPermissionsServiceImpl implements UserPermissionsService{
         try {
             List<UserPermissions> list = userPermissionsRepository.getListUserPermissionsByUser(idUser);
             return list;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<UserPermissionsDto> getListUserPermissionsByUserDto(Long idUser){
+        try {
+            List<UserPermissions> list = userPermissionsRepository.getListUserPermissionsByUser(idUser);
+            List<UserPermissionsDto> listResponse = userPermissionsUtils.convertListPermissionsDto(list);
+            return listResponse;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
