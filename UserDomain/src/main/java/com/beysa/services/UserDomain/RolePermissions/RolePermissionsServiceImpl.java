@@ -27,4 +27,6 @@ public class RolePermissionsServiceImpl implements RolePermissionsService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    
 }

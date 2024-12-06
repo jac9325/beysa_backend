@@ -22,7 +22,7 @@ public class RolePermissionsController {
     ResponseUtils response = new ResponseUtils();
     
     @GetMapping("/getRolePermissionsByIdRole/{id}")
-    public ResponseEntity<?> getRolePermissionsByIdRole(@PathVariable(value = "id") Long id){
+    public ResponseEntity<?> getRolePermissionsByIdRole(@PathVariable Long id){
         try{
             List<RolePermissionsDto> rolePermissions = rolePermissionsService.getRolePermissionsByIdRole(id);
             return response.ok(codes.ok(), messages.ok(), rolePermissions, null);
