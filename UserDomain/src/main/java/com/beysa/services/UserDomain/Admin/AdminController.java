@@ -71,7 +71,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("get/image/medic/{filename:.+}")
+    @GetMapping("get/image/admin/{filename:.+}")
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) throws IOException {
         if (filename == null || filename.isEmpty()) {
             throw new RuntimeException("Filename is null");

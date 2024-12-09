@@ -28,20 +28,25 @@ public class PatientClinic {
     @JoinColumn(name = "id_clinic")
     private Clinic clinic;
 
-    @Column(name = "status")
-    private Integer status;
-
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
 
     @Column(name = "mobile_number")
-    private String mobile_number;
+    private String mobileNumber;
 
     @Column(name = "email")
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "id_geographical_location")
+    private GeographicalLocation geographicalLocation;
+
+    @ManyToOne
+    @JoinColumn(name = "id_identity_document")
+    private IdentityDocument identityDocument;
 
     @Column(name = "address")
     private String address;
@@ -49,17 +54,12 @@ public class PatientClinic {
     @Column(name = "age")
     private String age;
 
-    @Column(name = "gender")
+    @Column(name = "gender", length = 1)
     private String gender;
 
     @Column(name = "identity_document_number")
-    private String identity_document_number;
+    private String identityDocumentNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "id_identity_document")
-    private IdentityDocument identityDocument;
-
-    @ManyToOne
-    @JoinColumn(name = "id_geographical_location")
-    private GeographicalLocation geographicalLocation;
+    @Column(name = "status")
+    private Integer status;
 }

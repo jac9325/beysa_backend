@@ -1,13 +1,11 @@
 package com.beysa.services.UserDomain.PatientClinic.DTO;
 
-import com.beysa.services.UserDomain.GeographicalLocation.GeographicalLocation;
-import com.beysa.services.UserDomain.IdentityDocument.IdentityDocument;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class PatientClinicDto {
     Long idPatientClinic;
