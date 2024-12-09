@@ -12,14 +12,14 @@ public class PatientClinicDto {
     Long idPatient;
     Long idClinic;
     Integer status;
-    String first_name;
-    String last_name;
-    String mobile_number;
+    String firstName;
+    String lastName;
+    String mobileNumber;
     String email;
     String address;
     String age;
     String gender;
-    String identity_document_number;
+    String identityDocumentNumber;
     Long idIdentityDocument;
     Long idGeographicalLocation;
 }
