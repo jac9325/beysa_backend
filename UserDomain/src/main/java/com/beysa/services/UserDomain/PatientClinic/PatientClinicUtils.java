@@ -14,6 +14,16 @@ public class PatientClinicUtils {
         dto.setIdPatientClinic(entity.getIdPatientClinic());
         dto.setIdPatient(entity.getPatient().getIdPatient());
         dto.setIdPatient(entity.getClinic().getIdClinic());
+        dto.setFirstName(entity.getFirstName());
+        dto.setLastName(entity.getLastName());
+        dto.setMobileNumber(entity.getMobileNumber());
+        dto.setEmail(entity.getEmail());
+        dto.setIdGeographicalLocation(entity.getGeographicalLocation().getIdGeographicalLocation());
+        dto.setIdIdentityDocument(entity.getIdentityDocument().getIdIdentityDocument());
+        dto.setAddress(entity.getAddress());
+        dto.setAge(entity.getAge());
+        dto.setGender(entity.getGender());
+        dto.setIdentityDocumentNumber(entity.getIdentityDocumentNumber());
         dto.setStatus(entity.getStatus());
         return dto;
     }
