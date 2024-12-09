@@ -25,6 +25,6 @@ public class IdentityDocument {
     @Column(name = "symbol")
     private String symbol;
 
-    @Column(name = "max_lenght")
-    private Integer max_lenght;
+    @Column(name = "max_length")
+    private Integer max_length;
 }

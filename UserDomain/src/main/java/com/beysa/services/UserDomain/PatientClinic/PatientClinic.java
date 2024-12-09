@@ -1,6 +1,8 @@
 package com.beysa.services.UserDomain.PatientClinic;
 
 import com.beysa.services.UserDomain.Clinic.Clinic;
+import com.beysa.services.UserDomain.GeographicalLocation.GeographicalLocation;
+import com.beysa.services.UserDomain.IdentityDocument.IdentityDocument;
 import com.beysa.services.UserDomain.Patient.Patient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,4 +30,36 @@ public class PatientClinic {
 
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "first_name")
+    private String first_name;
+
+    @Column(name = "last_name")
+    private String last_name;
+
+    @Column(name = "mobile_number")
+    private String mobile_number;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "age")
+    private String age;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "identity_document_number")
+    private String identity_document_number;
+
+    @ManyToOne
+    @JoinColumn(name = "id_identity_document")
+    private IdentityDocument identityDocument;
+
+    @ManyToOne
+    @JoinColumn(name = "id_geographical_location")
+    private GeographicalLocation geographicalLocation;
 }
